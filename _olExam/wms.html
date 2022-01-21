@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tiled WMS</title>
+    <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
+    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+    <script src="https://openlayers.org/en/v4.6.5/build/ol.js"></script>
+  </head>
+  <body>
+    <div id="map" class="map"></div>
+    <script>
+      var layers = [
+        new ol.layer.Tile({
+          source: new ol.source.OSM()
+        }),
+        new ol.layer.Tile({
+          <!-- extent: [-13884991, 2870341, -7455066, 6338219], -->
+          source: new ol.source.TileWMS({
+            <!-- url: 'https://ahocevar.com/geoserver/wms', -->
+            <!-- url: 'http://localhost:8080/geoserver/wms', -->
+            url: 'http://localhost:8080/geoserver/gwc/service/wms',
+            params: {'LAYERS': 'worldmap:worldmap', 'TILED': true, 'SRS': 'EPSG:3857'},
+            serverType: 'geoserver',
+            // Countries have transparency, so do not fade tiles:
+            transition: 0
+			, projection: 'EPSG:3857'
+          })
+        })
+      ];
+      var map = new ol.Map({
+        layers: layers,
+        target: 'map',
+        view: new ol.View({
+          center: [-10997148, 4569099],
+          zoom: 2
+        })
+      });
+    </script>
+  </body>
+</html>

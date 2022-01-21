@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WFS</title>
+    <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
+    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+    <script src="https://openlayers.org/en/v4.6.5/build/ol.js"></script>
+  </head>
+  <body>
+    <div id="map" class="map"></div>
+    <script>
+      var vectorSource = new ol.source.Vector({
+        format: new ol.format.GeoJSON(),
+        url: function(extent) {
+          return '/geoserver/wfs?service=WFS&' +
+              'version=1.1.0&request=GetFeature&typename=worldmap:ne_110m_admin_0_countries&' +
+              'outputFormat=application/json&srsname=EPSG:3857&' +
+              'bbox=' + extent.join(',') + ',EPSG:3857';
+        },
+        strategy: ol.loadingstrategy.bbox
+      });
+
+
+      var vector = new ol.layer.Vector({
+        source: vectorSource,
+        style: new ol.style.Style({
+          stroke: new ol.style.Stroke({
+            color: 'rgba(255, 255, 255, 1.0)',
+            width: 2
+          })
+        })
+      });
+
+      var raster = new ol.layer.Tile({
+          source: new ol.source.TileWMS({
+            url: '/geoserver/gwc/service/wms',
+            params: {'LAYERS': 'worldmap:worldmap', 'TILED': true, 'SRS': 'EPSG:3857'},
+            serverType: 'geoserver',
+            transition: 0
+			<!-- , projection: 'EPSG:3857' -->
+          })
+      });
+
+      var map = new ol.Map({
+        layers: [raster, vector],
+        target: document.getElementById('map'),
+        view: new ol.View({
+          center: [-8908887.277395891, 5381918.072437216],
+          maxZoom: 19,
+          zoom: 2
+        })
+      });
+    </script>
+  </body>
+</html>
