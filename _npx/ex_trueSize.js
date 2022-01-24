@@ -22,12 +22,47 @@ const vector = new VectorLayer({
     }),
 });
 
+import {getCenter} from 'ol/extent';
+import {transform} from 'ol/proj';
+
+
+// Select, Interaction
 const select = new Select();
 
 const translate = new Translate({
   features: select.getFeatures(),
 });
 
+
+var cur_lat = null;
+translate.on('translatestart', function(evt){
+  // 현재위도
+  var selected_feature = evt.features.getArray()[0];
+  cur_lat = getLatFromFeatureCenter(selected_feature);
+  console.log(cur_lat);
+});
+ 
+translate.on('translating', function(evt){
+  // 이전위도
+  var old_lat = cur_lat;
+     
+  // 현재위도
+  var selected_feature = evt.features.getArray()[0];
+  cur_lat = getLatFromFeatureCenter(selected_feature);
+     
+  // scale 적용
+  var crr_scale = 1/(cur_lat/old_lat);
+  selected_feature.getGeometry().scale(crr_scale);
+});
+
+function getLatFromFeatureCenter(feature) {
+  var feature_extent = feature.getGeometry().getExtent();
+  var center_3857 = getCenter(feature_extent);
+  var center_4326 = transform(center_3857, 'EPSG:3857', 'EPSG:4326');
+  return Math.cos(center_4326[1] * Math.PI / 180.0); // radian -> degree
+}
+
+// Map
 const map = new Map({
   interactions: defaultInteractions().extend([select, translate]),
   target: 'map',

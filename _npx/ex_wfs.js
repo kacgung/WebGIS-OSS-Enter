@@ -27,7 +27,7 @@ const vector = new VectorLayer({
     source: vectorSource,
     style: new Style({
         stroke: new Stroke({
-            color: 'rgba(0, 0, 255, 1.0)',
+            color: 'rgba(0, 0, 255, 0.5)',
             width: 2,
         }),
     }),
