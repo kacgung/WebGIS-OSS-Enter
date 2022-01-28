@@ -35,9 +35,11 @@
 
 <br/>
 
+- [Quick Start](#Quick-Start)
 - [WMS, GWC](#WMS-GWC)
 - [WFS, CORS](#WFS-CORS)
 - [Interaction](#Interaction)
+- [Truesize](#Truesize)
 
 <br/>
 
@@ -47,19 +49,27 @@
 먼저 다음을 참고하여 무작정 지도를 띄워 보세요.<br/>
 http://openlayers.org/en/latest/doc/quickstart.html<br/><br/>
 
->소스코드를 Notedpad++와 같은 편집기로 복붙해서 `quickstart.html`라는 파일명으로 저장하세요. `quickstart.html`를 실행하면 지도가 보입니다.
+소스코드를 Notedpad++와 같은 편집기로 복붙해서 `quickstart.html`라는 파일명으로 저장하세요. `quickstart.html`를 실행하면 지도가 보입니다.</br></br>
 
-<br/>
+OpenLayers는 JavaScript 모듈을 사용하여 작성하는 것을 더 권장합니다. 다음과 같이 Node.js 기반의 개발환경을 구성하세요. [Building an OpenLayers Application tutorial](https://openlayers.org/en/latest/doc/tutorials/bundle.html) </br></br>
 
-OpenLayers는 JavaScript 모듈을 사용하여 작성하는 것을 더 권장합니다. 다음과 같이 Node.js 기반의 개발환경을 구성하세요.
+Git이 없다면 설치하세요. https://gitforwindows.org</br>
+새 프로젝트 폴더를 만드세요. `mkdir new-project && cd new-project`</br>
+OpenLayers 프로젝트로 초기화 하세요. </br>
+```
+npx create-ol-app
+```
+새 프로젝트 서버를 실행하세요. </br>
+```
+npm start
+```
+다음(http://localhost:3000)에 접속하여 결과물을 확인하세요.</br></br>
 
-[Building an OpenLayers Application tutorial](https://openlayers.org/en/latest/doc/tutorials/bundle.html)
+다음 미션에 도전해 보세요.
 
-</br>
-
->- 시작 위치가 우리나라가 되게 수정해보세요.
->- 우리나라가 더 잘 보이게 확대해서 시작되게 해보세요.
->- 지도 영역도 변경해 보세요.
+>시작 위치가 우리나라가 되게 수정해보세요. </br>
+우리나라가 더 잘 보이게 확대해서 시작되게 해보세요. </br>
+지도 영역도 변경해 보세요. </br>
 
 </br>
 
@@ -94,3 +104,7 @@ OpenLayers는 JavaScript 모듈을 사용하여 작성하는 것을 더 권장�
 <br/>
 
 ### Interaction
+
+<br/>
+
+### Truesize
