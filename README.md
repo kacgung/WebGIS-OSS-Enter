@@ -185,7 +185,7 @@ GWC 적용에 대해서 요청 URI(`/gwc/service`)와 그리드셋(`SRS: 'EPSG:3
 
 <br/>
 
-다음을 참고해서 WFS 레이어를 우리 WebGIS에 추가해보세요.
+다음을 참고해서 WFS 레이어를 우리 WebGIS에 추가해보세요.   
 https://openlayers.org/en/latest/examples/vector-wfs.html
 
 <br/>
@@ -253,7 +253,7 @@ WFS 레이어가 추가된 것을 확인해보세요. 네트워크 분석을 통
 
 <br/>
 
-다음을 참고해서 `Interaction` 을 추가하고, `'Translate Features'` 를 구현하세요.
+다음을 참고해서 `Interaction` 을 추가하고, `'Translate Features'` 를 구현하세요.   
 https://openlayers.org/en/latest/examples/translate-features.html
 
 <br/>
@@ -298,10 +298,47 @@ WFS 레이어를 변경해보세요.
 
 <br/>
 
-다음을 참고해서 `The True Size of` 를 구현해보세요.
+다음을 참고해서 `The True Size of` 를 구현해보세요.   
 https://openlayers.org/en/latest/examples/tissot.html
-
 
 <br/>
 
+피쳐 이동 시 위도 변화 비율 계산해서 피쳐 지오메트리 스케일을 변경하도록 구현하세요.
+
+```javascript
+import {getCenter} from 'ol/extent';
+import {transform} from 'ol/proj';
+
+var cur_lat = null;
+
+translate.on('translatestart', function(evt){
+  // 현재위도
+  var selected_feature = evt.features.getArray()[0];
+  cur_lat = getLatFromFeatureCenter(selected_feature);
+  console.log(cur_lat);
+});
+ 
+translate.on('translating', function(evt){
+  // 이전위도
+  var old_lat = cur_lat;
+     
+  // 현재위도
+  var selected_feature = evt.features.getArray()[0];
+  cur_lat = getLatFromFeatureCenter(selected_feature);
+     
+  // scale 적용
+  var crr_scale = 1/(cur_lat/old_lat);
+  selected_feature.getGeometry().scale(crr_scale);
+});
+
+function getLatFromFeatureCenter(feature) {
+  var feature_extent = feature.getGeometry().getExtent();
+  var center_3857 = getCenter(feature_extent);
+  var center_4326 = transform(center_3857, 'EPSG:3857', 'EPSG:4326');
+  return Math.cos(center_4326[1] * Math.PI / 180.0); // radian -> degree
+}
+```
+
 <br/><br/>
+
+The End
