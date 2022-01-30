@@ -185,9 +185,67 @@ GWC 적용에 대해서 요청 URI(`/gwc/service`)와 그리드셋(`SRS: 'EPSG:3
 
 <br/>
 
-
+다음을 참고해서 WFS 레이어를 우리 WebGIS에 추가해보세요.
+https://openlayers.org/en/latest/examples/vector-wfs.html
 
 <br/>
+
+WFS 레이어 생성에 필요한 클래스를 Import하세요.   
+
+```javascript
+import GeoJSON from 'ol/format/GeoJSON';
+import VectorSource from 'ol/source/Vector';
+import {Stroke, Style} from 'ol/style';
+import {Tile as TileLayer, Vector as VectorLayer} from 'ol/layer';
+import {bbox as bboxStrategy} from 'ol/loadingstrategy';
+```
+<br/>
+
+우리 WebGIS에 추가할 WFS 레이어를 생성하세요.
+
+```javascript
+const vectorSource = new VectorSource({
+    format: new GeoJSON(),
+    url: function (extent) {
+      return (
+        'https://ahocevar.com/geoserver/wfs?service=WFS&' +
+        'version=1.1.0&request=GetFeature&typename=osm:water_areas&' +
+        'outputFormat=application/json&srsname=EPSG:3857&' +
+        'bbox=' +
+        extent.join(',') +
+        ',EPSG:3857'
+      );
+    },
+    strategy: bboxStrategy,
+  });
+  
+const vector = new VectorLayer({
+    source: vectorSource,
+    style: new Style({
+        stroke: new Stroke({
+            color: 'rgba(0, 0, 255, 0.5)',
+            width: 2,
+        }),
+    }),
+});
+```
+
+<br/>
+
+`Map`에 WFS 레이어를 추가하세요.
+
+```javascript
+  layers: [
+    new TileLayer({
+      source: new OSM()
+    }),
+    vector //WFS 레이어 추가
+  ],
+```
+
+<br/>
+
+WFS 레이어가 추가된 것을 확인해보세요. 네트워크 분석을 통해서 요청과 응답 등을 확인해보세요. 네트워크 분석을 통해서 GeoJSON 데이터를 확인해보세요.
 
 <br/><br/>
 
@@ -195,9 +253,44 @@ GWC 적용에 대해서 요청 URI(`/gwc/service`)와 그리드셋(`SRS: 'EPSG:3
 
 <br/>
 
-
+다음을 참고해서 `Interaction` 을 추가하고, `'Translate Features'` 를 구현하세요.
+https://openlayers.org/en/latest/examples/translate-features.html
 
 <br/>
+
+필요한 `Interationt` 클래스를 Import 하고, 생성하세요.
+
+```javascript
+import {Select, Translate, defaults as defaultInteractions} from 'ol/interaction';
+
+const vector = new VectorLayer({
+    background: 'white',
+    source: new VectorSource({
+      url: 'https://openlayers.org/data/vector/us-states.json',
+      format: new GeoJSON(),
+    }),
+});
+
+const select = new Select();
+
+const translate = new Translate({
+  features: select.getFeatures(),
+});
+```
+
+<br/>
+
+`Map` 에 `Interation` 을 추가하세요.
+
+```javascript
+const map = new Map({
+  interactions: defaultInteractions().extend([select, translate]),
+  target: 'map',
+  
+```
+<br/>
+
+WFS 레이어를 변경해보세요.
 
 <br/><br/>
 
@@ -205,6 +298,8 @@ GWC 적용에 대해서 요청 URI(`/gwc/service`)와 그리드셋(`SRS: 'EPSG:3
 
 <br/>
 
+다음을 참고해서 `The True Size of` 를 구현해보세요.
+https://openlayers.org/en/latest/examples/tissot.html
 
 
 <br/>
