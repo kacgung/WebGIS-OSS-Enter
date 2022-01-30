@@ -155,17 +155,58 @@ WMS 레이어(`topp:states`)가 우리 WebGIS(http://localhost:3000)에 추가�
 
 <br/>
 
-다음 문서를 참고해서 우리가 추가한 WMS 레이어가 GWC([GeoWebCache](https://docs.geoserver.org/stable/en/user/geowebcache/index.html))를 사용하도록 구현해보세요.
+다음을 참고해서 우리가 추가한 WMS 레이어를 GWC([GeoWebCache](https://docs.geoserver.org/stable/en/user/geowebcache/index.html))로 구현해보세요.
 https://docs.geoserver.org/latest/en/user/geowebcache/using.html
 
 <br/>
 
+```javascript
+  new TileLayer({
+    extent: [-13884991, 2870341, -7455066, 6338219],
+    source: new TileWMS({
+      url: 'https://ahocevar.com/geoserver/gwc/service/wms',
+      params: {
+        LAYERS: 'topp:states', 
+        TILED: true,
+        SRS: 'EPSG:3857',
+      },
+      serverType: 'geoserver',
+      transition: 0,
+    }),
+  }),    
+```
+
+GWC 적용에 대해서 요청 URI(`/gwc/service`)와 그리드셋(`SRS: 'EPSG:3857'`) 정의를 이해하세요.   
+개발자도구 네트워크분석을 통해서 요청과 응답 등을 살펴보세요.
+
+<br/><br/>
+
 ### WFS
+
+<br/>
+
+
+
+<br/>
 
 <br/><br/>
 
 ### Interaction
 
+<br/>
+
+
+
+<br/>
+
 <br/><br/>
 
 ### Truesize
+
+<br/>
+
+
+
+<br/>
+
+<br/><br/>
