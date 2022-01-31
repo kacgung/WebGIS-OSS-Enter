@@ -17,7 +17,16 @@ import {fromLonLat} from 'ol/proj';
 const vector = new VectorLayer({
     background: 'white',
     source: new VectorSource({
-      url: 'https://openlayers.org/data/vector/us-states.json',
+      url: function (extent) {
+        return (
+          'https://ahocevar.com/geoserver/wfs?service=WFS&' +
+          'version=1.1.0&request=GetFeature&typename=topp:states&' +
+          'outputFormat=application/json&srsname=EPSG:3857&' +
+          'bbox=' +
+          extent.join(',') +
+          ',EPSG:3857'
+        );
+      },
       format: new GeoJSON(),
     }),
 });

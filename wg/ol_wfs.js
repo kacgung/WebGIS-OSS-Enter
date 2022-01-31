@@ -16,6 +16,7 @@ const vectorSource = new VectorSource({
     return (
       'https://ahocevar.com/geoserver/wfs?service=WFS&' +
       'version=1.1.0&request=GetFeature&typename=osm:water_areas&' +
+      // 'version=1.1.0&request=GetFeature&typename=topp:states&' +
       'outputFormat=application/json&srsname=EPSG:3857&' +
       'bbox=' +
       extent.join(',') +
@@ -54,6 +55,6 @@ const map = new Map({
   ],
   view: new View({
     center: [-8908887, 5381918],
-    zoom: 7
+    zoom: 12
   })
 });

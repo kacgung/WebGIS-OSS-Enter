@@ -247,6 +247,28 @@ const vector = new VectorLayer({
 
 WFS 레이어가 추가된 것을 확인해보세요. 네트워크 분석을 통해서 요청과 응답 등을 확인해보세요. 네트워크 분석을 통해서 GeoJSON 데이터를 확인해보세요.
 
+<br/>
+
+WFS 레이어를 변경해보세요.
+
+```javascript
+const vectorSource = new VectorSource({
+  format: new GeoJSON(),
+  url: function (extent) {
+    return (
+      'https://ahocevar.com/geoserver/wfs?service=WFS&' +
+      // 'version=1.1.0&request=GetFeature&typename=osm:water_areas&' +
+      'version=1.1.0&request=GetFeature&typename=topp:states&' +
+      'outputFormat=application/json&srsname=EPSG:3857&' +
+      'bbox=' +
+      extent.join(',') +
+      ',EPSG:3857'
+    );
+  },
+  strategy: bboxStrategy,
+});
+```
+
 <br/><br/>
 
 ### Interaction
