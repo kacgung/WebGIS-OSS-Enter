@@ -56,7 +56,7 @@
 먼저 다음을 참고하여 무작정 지도를 띄워 보세요.   
 http://openlayers.org/en/latest/doc/quickstart.html<br/><br/>
 
-소스코드를 Notedpad++와 같은 편집기로 복붙(복사하고 붙여넣기)해서 `quickstart.html`라는 파일명으로 저장하세요. `quickstart.html`를 실행하면 지도가 보입니다. 여러분이 처음으로 만든 `WebGIS` 어플리케이션을 확인하세요.<br/><br/> 
+소스코드를 [VSCode(Visual Studio Code)](https://code.visualstudio.com) 와 같은 편집기로 복붙(복사하고 붙여넣기)해서 `quickstart.html`라는 파일명으로 저장하세요. `quickstart.html`를 실행하면 지도가 보입니다. 여러분이 처음으로 만든 `WebGIS` 어플리케이션을 확인하세요.<br/><br/> 
 
 웹 페이지에 지도를 붙이기 위해서 다음 세 가지가 필요함을 확인하세요.
 
@@ -68,7 +68,7 @@ http://openlayers.org/en/latest/doc/quickstart.html<br/><br/>
 
 OpenLayers는 JavaScript 모듈을 사용하여 작성하는 것을 더 권장합니다. 다음과 같이 Node.js 기반의 개발환경을 구성하세요. [Building an OpenLayers Application tutorial](https://openlayers.org/en/latest/doc/tutorials/bundle.html) <br/><br/>
 
-`코드 에디터` 가 없다면 [VSCode(Visual Studio Code)](https://code.visualstudio.com/)를 설치하세요.   
+`코드 에디터` 가 없다면 [VSCode(Visual Studio Code)](https://code.visualstudio.com)를 설치하세요.   
 [Git](https://gitforwindows.org)이 없다면 설치하세요.<br/><br/>
 
 새 프로젝트 폴더를 만드세요.
