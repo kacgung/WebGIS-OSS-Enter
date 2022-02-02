@@ -2,6 +2,10 @@
 
 <br/>
 
+`OpenLayers`는 간단히 말해 웹 페이지에 지도를 붙여주는 라이브러리입니다. `OpenLayers`가 자체적으로 지도를 제공하는 것은 아니고, `OSM(Open Street Map), Google Map, Naver Map, Kakao Map, Vworld, GeoServer` 등에서 제공하는 지도데이터를 받아 이를 웹에서 자유롭게 이동, 확대 등이 가능하도록 기능을 제공합니다.
+
+<br/>
+
 - [Quick Start](#Quick-Start)
 - [WMS](#WMS)
 - [GWC](#GWC)
@@ -13,10 +17,6 @@
 <br/>
 
 ## Quick Start
-
-<br/>
-
-`OpenLayers`는 간단히 말해 웹 페이지에 지도를 붙여주는 라이브러리입니다. `OpenLayers`가 자체적으로 지도를 제공하는 것은 아니고, `OSM(Open Street Map), Google Map, Naver Map, Kakao Map, Vworld, GeoServer` 등에서 제공하는 지도데이터를 받아 이를 웹에서 자유롭게 이동, 확대 등이 가능하도록 기능을 제공합니다.
 
 <br/>
 
