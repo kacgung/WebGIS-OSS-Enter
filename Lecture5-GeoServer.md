@@ -2,6 +2,8 @@
 
 > 인터넷에 공간정보를 서비스하는 GeoServer에 대해 배워보겠습니다.
 
+<br/>
+
 ## GeoServer 에 레이어 등록
 
 우선 무작정 데이터를 등록해 봅시다. [GeoServer](http://geoserver.org)가 없다면 설치하세요.
@@ -98,6 +100,32 @@ URL 부분에서 [탐색…] 버튼을 누르고, 'data/worldmap/NE1_50M_SR_W.ti
 [레이어 미리보기]에서 레이어를 찾아 미리보기 합니다.   
 ![](img/2022-02-02-14-57-13.png)
 
+</br>
+
+## OGC 웹서비스 이해
+
+지금 배우고 있는 GeoServer의 역할을 한 문장으로 기술하면 다음과 같습니다.
+
+***Geospatial Gateway Server***
+
+다양한 공간 Data를 인터넷용 공간데이터 표준 인터페이스로 공급하는 프로그램이란 뜻입니다. 
+
+GeoServer가 제공하는 대표적인 공간정보 표준 인터페이스에는 WMS,  WFS, WCS 등이 있습니다. 이 인터페이스를 통해 컴퓨터에 저장된 벡터 데이터와 래스터 데이터를 인터넷 상에서 활용하기 적합한 형태로 바꿔 서비스 해 줍니다.
+
+벡터 데이터는 WMS와 WFS로 서비스 될 수 있고, 래스터 데이터는 WMS와 WCS로 서비스 될 수 있습니다.
+
+이런 서비스 표준을 정한 기관이 OGC(Open Geospatial Consortium)입니다. 그래서 통칭해 OGC Web Service(OWS), 우리말로 OGC 웹서비스라 합니다.
+
+이제 서비스 인터페이스를 중심으로 하나씩 살펴보겠습니다.
+
+### ⬛ Web Map Service (WMS)
+
+- 지도 이미지 등 스타일을 가진 공간데이터를 인터넷으로 서비스하는 표준입니다.
+- 요청방법과 응답형식을 정의하고 있습니다.
+- 보통 URI(웹주소+파라미터)로 요청하고 이미지로 응답을 받습니다.
+- 지도요청, 카타로그조회, 속성조회 등이 가능합니다.
+- 필수: GetCapabilities , GetMap 
+- 옵션: GetFeatureInfo, DescribeLayer, GetLegendGraphic
 
 
 <br/><br/>
