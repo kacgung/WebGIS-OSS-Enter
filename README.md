@@ -18,8 +18,7 @@
 
 <br/>
 
-실습에 필요한 Data와 OSS(Open Source Software) 다음에서 다운로드하세요.
-
+실습에 필요한 Data와 OSS(Open Source Software) 다음에서 다운로드하세요.   
 https://www.dropbox.com/sh/8hyxdv3qbs7u22e/AAAbpIT3pSsX3UKzTXrA8PySa?dl=0
 
 
