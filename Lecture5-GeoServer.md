@@ -108,7 +108,8 @@ URL 부분에서 [탐색…] 버튼을 누르고, 'data/worldmap/NE1_50M_SR_W.ti
 
 ***Geospatial Gateway Server***
 
-다양한 공간 Data를 인터넷용 공간데이터 표준 인터페이스로 공급하는 프로그램이란 뜻입니다. 
+다양한 공간 Data를 인터넷용 공간데이터 표준 인터페이스로 공급하는 프로그램이란 뜻입니다.   
+![](img/2022-02-02-15-06-26.png)
 
 GeoServer가 제공하는 대표적인 공간정보 표준 인터페이스에는 WMS,  WFS, WCS 등이 있습니다. 이 인터페이스를 통해 컴퓨터에 저장된 벡터 데이터와 래스터 데이터를 인터넷 상에서 활용하기 적합한 형태로 바꿔 서비스 해 줍니다.
 
@@ -127,6 +128,25 @@ GeoServer가 제공하는 대표적인 공간정보 표준 인터페이스에는
 - 필수: GetCapabilities , GetMap 
 - 옵션: GetFeatureInfo, DescribeLayer, GetLegendGraphic
 
+
+### ⬛ Web Feature Service (WFS)
+
+- 벡터 형식의 공간정보 피처(Feature: Geometry+attribute)를 인터넷으로 서비스하는 표준입니다.
+- 요청방법과 응답형식을 정의하고 있습니다.
+- 보통 URI로 요청하고 XML, GeoJSON 등으로 응답을 받습니다.
+- 피처요청, 카타로그조회, 속성조회 등이 가능합니다.
+- 필수: GetCapabilities , DescribeFeatureType , GetFeature
+- 옵션: LockFeature, Transaction
+
+
+### ⬛ Web Coverage Service (WCS)
+
+- 래스터 형태의 커버리지(좌표가 있는 래스터) 공간데이터를 인터넷으로 서비스하
+는 표준입니다.
+- 요청방법과 응답형식을 정의하고 있습니다.
+- 보통 URI로 요청하고 래스터 파일로 응답을 받습니다.
+- 커버리지요청, 카타로그조회 등이 가능가능합니다.
+- 필수: GetCapabilities , DescribeCoverage , GetCoverage
 
 <br/><br/>
 
