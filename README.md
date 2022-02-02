@@ -1,12 +1,12 @@
 # 오픈소스 GIS 서비스 개발자 (입문)
 
-> (출처) '오픈소스 GIS 서비스 개발자 입문' 과정, `[공간정보아카데미](http://lxsiedu.or.kr)`, `[OSGeo한국어지부](https://www.osgeo.kr)`   
+> (출처) '오픈소스 GIS 서비스 개발자 입문' 과정, [공간정보아카데미](http://lxsiedu.or.kr), [OSGeo한국어지부](https://www.osgeo.kr)   
 본 자료는 모두 Creative Commons License CC-BY-NC을 따릅니다.    
 본 교재에서 사용하는 샘플 데이터 셋은 실제 정보와 다르므로 교육용 이외에는 사용할 수 없습니다.
 
 <br/>
 
-본 교육은 `The True Size of… `(https://thetruesize.com) 와 유사한 사이트를 처음부터 끝까지 `오픈소스 GIS`로 만들어 보는 것입니다.
+본 교육은 `The True Size of… `(https://thetruesize.com) 와 유사한 사이트를 처음부터 끝까지 `Open Source GIS`로 만들어 보는 것입니다.
 
 - 오픈소스 GIS
 - 공간데이터 다루기 (QGIS)
