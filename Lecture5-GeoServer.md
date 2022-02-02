@@ -127,6 +127,7 @@ GeoServer가 제공하는 대표적인 공간정보 표준 인터페이스에는
 - 지도요청, 카타로그조회, 속성조회 등이 가능합니다.
 - 필수: GetCapabilities , GetMap 
 - 옵션: GetFeatureInfo, DescribeLayer, GetLegendGraphic
+https://openlayers.org/en/latest/examples/wms-tiled.html
 
 
 ### ⬛ Web Feature Service (WFS)
@@ -137,6 +138,7 @@ GeoServer가 제공하는 대표적인 공간정보 표준 인터페이스에는
 - 피처요청, 카타로그조회, 속성조회 등이 가능합니다.
 - 필수: GetCapabilities , DescribeFeatureType , GetFeature
 - 옵션: LockFeature, Transaction
+https://openlayers.org/en/latest/examples/vector-wfs.html
 
 
 ### ⬛ Web Coverage Service (WCS)
@@ -147,6 +149,7 @@ GeoServer가 제공하는 대표적인 공간정보 표준 인터페이스에는
 - 보통 URI로 요청하고 래스터 파일로 응답을 받습니다.
 - 커버리지요청, 카타로그조회 등이 가능가능합니다.
 - 필수: GetCapabilities , DescribeCoverage , GetCoverage
+http://demo.mapserver.org/cgi-bin/wcs?SERVICE=wcs&VERSION=1.0.0&REQUEST=GetCoverage&COVERAGE=modis-001&CRS=EPSG:26915&BBOX=159707,4597395,1400707,5501395&WIDTH=400&HEIGHT=300&FORMAT=GEOTIFF_RGB  
 
 <br/><br/>
 
