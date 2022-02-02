@@ -149,7 +149,8 @@ https://openlayers.org/en/latest/examples/vector-wfs.html
 - 보통 URI로 요청하고 래스터 파일로 응답을 받습니다.
 - 커버리지요청, 카타로그조회 등이 가능가능합니다.
 - 필수: GetCapabilities , DescribeCoverage , GetCoverage   
-- http://demo.mapserver.org/cgi-bin/wcs?SERVICE=wcs&VERSION=1.0.0&REQUEST=GetCoverage&COVERAGE=modis-001&CRS=EPSG:26915&BBOX=159707,4597395,1400707,5501395&WIDTH=400&HEIGHT=300&FORMAT=GEOTIFF_RGB  
+
+http://demo.mapserver.org/cgi-bin/wcs?SERVICE=wcs&VERSION=1.0.0&REQUEST=GetCoverage&COVERAGE=modis-001&CRS=EPSG:26915&BBOX=159707,4597395,1400707,5501395&WIDTH=400&HEIGHT=300&FORMAT=GEOTIFF_RGB  
 
 <br/><br/>
 
