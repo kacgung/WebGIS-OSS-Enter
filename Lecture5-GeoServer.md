@@ -374,6 +374,70 @@ GeoServer에서 지원하는 지도타일 서버캐시를 GeoWebCache 줄여서 
 - `worldmap:worldmap` 레이어 그룹 GWC로 조회하는 WebGIS를 구현해보세요.
 - 우리가 발행한 `worldmap:ne_110m_admin_0_countries` 레이어를 WFS로 조회하는 WebGIS를 구현해보세요
 
+<br/>
+
+## 서비스를 위한 Stack 구성
+
+상용 환경에서 웹 지도 서비스를 위한 일반적인 구성은 아래 그림과 같습니다.   
+![](img/2022-02-02-17-57-07.png)
+ 
+OpenLayers를 지도 콘트롤로 하는 웹페이지가 웹서버를 통해 서비스에 접근하고, 웹서버는 정적인 HTML 데이터를 제공하고, 공간정보는 Proxy HTTP 모듈을 통해 GeoServer에 요청합니다. 이 때 사용자의 인터넷을 통한 요청은 80포트로 통합되어 서비스 됩니다.
+
+GeoServer는 공간정보 파일이나 PostGIS에서 데이터를 가져와 서비스를 해 줍니다.
+이 때 공간정보는 QGIS 등 데스크탑 GIS 툴을 이용해 가공하고 관리합니다.
+
+이런 서비스 스택의 구성을 이제 거의 다 배웠습니다. 아직 안 배운 것이 웹서비스를 통해 여러가지 서비스를 80포트로 통합하는 것입니다. 이런 기법은 보안정책 준수와 Cross Domain 오류 극복을 위해 필요합니다.
+
+많이 사용되는 웹서버인 Apache HTTPD를 설치해 봅시다.   
+https://www.apachelounge.com/download
+
+Apache 2.4의 win64용 zip 파일을 받아 C:\Apache24 폴더에 압축풀어 주는 것만으로 설치는 끝납니다. 이 때 Apache24 폴더가 2중으로 생기지 않게 주의해 주세요, 
+만약 다른 경로에 설치하려면 설정파일을 여기저기 수정해 주어야 하는 불편함이 있습니다.
+
+잘 설치되었는지 확인하기 위해 C:\Apache24\bin\httpd.exe 파일을 실행 후  웹브라우저를 띄우고 http://localhost 에 들어가 봅시다.  
+![](img/2022-02-02-18-01-28.png)
+
+이제 Apache HTTPD와 GeoServer의 연결을 위해 설정파일을 수정해 주어야 합니다.
+
+Apache HTTPD의 설정 파일은 conf/httpd.conf 파일입니다. 이 파일의 설정으로 웹서버의 거의 모든 동작을 제어할 수 있는 아주 중요한 파일입니다. 이제 우리 목적에 맞게 수정할 것인데, 그 전에 꼭 원본을 복사해 두세요. 만약 실수로 이 설정파일이 잘못되면 웹서비스가 구동하지 않게 되기에 이렇게 수정 전에 복사해 두는 습관을 들이는 것이 좋습니다.
+
+Code Editor로 httpd.conf 파일을 엽니다.
+ 
+먼저 필요한 모듈들을 활성화 시켜야 하는데 `mod_proxy.so`, `mod_proxy_http.so` 2개 모듈을 찾아 앞의 주석마크(#)을 삭제해 활성화합니다. 이 때 간혹 실수로 mod_proxy_html.so 모듈을 실행시키는 분이 있으니 주의하세요.
+
+이제 mod_proxy_http 모듈의 동작 설정을 해 주어야 합니다. httpd.conf 파일의 제일 마지막에 다음 내용을 추가해 줍니다.
+
+```xml
+<IfModule proxy_http_module>
+ProxyPass /geoserver http://localhost:8080/geoserver
+ProxyPassReverse /geoserver http://localhost:8080/geoserver
+</IfModule>
+```
+
+내용은 외부에서 http로 /geoserver 라는 내용이 들어오면 이를 내부적으로 http://localhost:8080/geoserver 라는 경로로 바꿔주고, 내부에서 나가는 내용에 http://localhost:8080/geoserver 라는 내용이 있으면 /geoserver로 바꿔 내보내 주라는 것입니다.
+
+잘 되는지 확인해 보기 위해 httpd를 종료하고 다시 시작해 봅시다.
+그리고 http://localhost/geoserver 를 호출해 봅시다.   
+![](img/2022-02-02-18-05-56.png)
+ 
+이렇게 `:8080` 포트 지정 없이 geoserver를 호출할 수 있으면 성공입니다.
+이제 웹 포트인 80 포트로 GeoServer까지 통합된 것입니다. PostGIS는 GeoServer를 통해 연결할 수 있으니 우리가 원하는 스택을 모두 구성하였습니다.
+
+이제 우리 WebGIS를 80 웹 포트로 연결하여 이 폴더를 웹서비스에서 볼 수 있도록 설정해 보겠습니다.
+
+DocumentRoot 로 지정된 폴더에 심볼릭 링크를 만들면, 여러 폴더를 통합해 줄 수 있습니다. httpd.conf 파일에서 DocumentRoot 부분을 수정해 HTML의 루트 경로를 바꿀 수도 있지만, 그보다는 심볼릭 링크를 이용하는 것이 여러 폴더를 체계적으로 관리하는데 유리합니다.
+
+콘솔창을 실해하여 cd 명령으로 \Apache24\htdocs 폴더로 갑니다.
+
+윈도우에서 심볼릭 링크를 만들 수 있는 명령인 mklink를 이용해 심볼릭 링크를 생성해 줍니다. 
+
+    mklink /D olExam c:\temp\olExam 
+
+cd 명령으로 olExam 폴더로 갑니다.
+들어가지고 dir 명령으로 내용을 확인할 수 있으면 성공입니다.
+
+http://localhost 를 호출해 확인해 봅시다.
+
 <br/><br/>
 
 The End
