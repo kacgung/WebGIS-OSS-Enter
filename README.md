@@ -6,11 +6,11 @@
 
 <br/>
 
-본 교육은 `The True Size of… `(https://thetruesize.com)와 유사한 사이트를 처음부터 끝까지 `오픈소스 GIS`로 만들어 보는 것입니다.
+본 교육은 `The True Size of… `(https://thetruesize.com) 와 유사한 사이트를 처음부터 끝까지 `오픈소스 GIS`로 만들어 보는 것입니다.
 
-- [오픈소스 GIS]
-- [공간데이터 다루기 (QGIS)]
-- [공간 DBMS 구축 (PostGIS)]
+- 오픈소스 GIS
+- 공간데이터 다루기 (QGIS)
+- 공간 DBMS 구축 (PostGIS)
 - [공간데이터 배포 (GeoServer)](Lecture5-GeoServer.md)
 - [웹 GIS 서비스 구현 (OpenLayers)](Lecture6-OpenLayers.md)
 
