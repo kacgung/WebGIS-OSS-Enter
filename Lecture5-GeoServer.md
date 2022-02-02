@@ -461,8 +461,8 @@ export default {
 }
 ```
 
-Apache Httpd 서버 실행 없이 동작함을 확인하세요.   
-
+Apache Httpd 서버 실행 없이 WFS(localhost)조회가 동작함을 확인하세요.   
+![](img/2022-02-02-22-56-52.png)
 
 <br/>
 
