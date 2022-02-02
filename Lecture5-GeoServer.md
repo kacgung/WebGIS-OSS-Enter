@@ -7,6 +7,7 @@
 - [레이어 그룹과 스타일](#레이어-그룹과-스타일)
 - [uDig을 이용한 순쉬운 스타일링](#uDig을-이용한-순쉬운-스타일링)
 - [GWC를 이용한 캐시](#GWC를-이용한-캐시)
+- [서비스를 위한 Stack 구성](#서비스를-위한-Stack-구성)
 
 <br/>
 
@@ -368,11 +369,13 @@ GeoServer에서 지원하는 지도타일 서버캐시를 GeoWebCache 줄여서 
 
 <br/>
 
-다음 OpenLayers 과제에 도전해 보세요.
+다음 `OpenLayers` & `GeoServer` 과제에 도전해 보세요.
 
 - 우리가 발행한 `worldmap:worldmap` 레이어 그룹을 WMS로 조회하는 WebGIS를 구현해보세요.
-- `worldmap:worldmap` 레이어 그룹 GWC로 조회하는 WebGIS를 구현해보세요.
+- `worldmap:worldmap` 레이어 그룹을 GWC로 조회하는 WebGIS를 구현해보세요.
 - 우리가 발행한 `worldmap:ne_110m_admin_0_countries` 레이어를 WFS로 조회하는 WebGIS를 구현해보세요
+
+WFS 조회에서 [교차 출처 리소스 공유, CORS](https://developer.mozilla.org/ko/docs/Web/HTTP/CORS) 를 확인하세요.
 
 <br/>
 
@@ -409,15 +412,14 @@ Code Editor로 httpd.conf 파일을 엽니다.
 
 ```xml
 <IfModule proxy_http_module>
-ProxyPass /geoserver http://localhost:8080/geoserver
-ProxyPassReverse /geoserver http://localhost:8080/geoserver
+    ProxyPass /geoserver http://localhost:8080/geoserver
+    ProxyPassReverse /geoserver http://localhost:8080/geoserver
 </IfModule>
 ```
 
 내용은 외부에서 http로 /geoserver 라는 내용이 들어오면 이를 내부적으로 http://localhost:8080/geoserver 라는 경로로 바꿔주고, 내부에서 나가는 내용에 http://localhost:8080/geoserver 라는 내용이 있으면 /geoserver로 바꿔 내보내 주라는 것입니다.
 
-잘 되는지 확인해 보기 위해 httpd를 종료하고 다시 시작해 봅시다.
-그리고 http://localhost/geoserver 를 호출해 봅시다.   
+잘 되는지 확인해 보기 위해 httpd를 종료하고 다시 시작해 봅시다. 그리고 http://localhost/geoserver 를 호출해 봅시다.   
 ![](img/2022-02-02-18-05-56.png)
  
 이렇게 `:8080` 포트 지정 없이 geoserver를 호출할 수 있으면 성공입니다.
@@ -427,16 +429,24 @@ ProxyPassReverse /geoserver http://localhost:8080/geoserver
 
 DocumentRoot 로 지정된 폴더에 심볼릭 링크를 만들면, 여러 폴더를 통합해 줄 수 있습니다. httpd.conf 파일에서 DocumentRoot 부분을 수정해 HTML의 루트 경로를 바꿀 수도 있지만, 그보다는 심볼릭 링크를 이용하는 것이 여러 폴더를 체계적으로 관리하는데 유리합니다.
 
-콘솔창을 실해하여 cd 명령으로 \Apache24\htdocs 폴더로 갑니다.
+먼저 우리 WebGIS 어플리케이션 번들을 생성하세요
+
+    npm run build
+
+콘솔창을 실행하여 cd 명령으로 \Apache24 폴더로 갑니다.
 
 윈도우에서 심볼릭 링크를 만들 수 있는 명령인 mklink를 이용해 심볼릭 링크를 생성해 줍니다. 
 
-    mklink /D olExam c:\temp\olExam 
+    mklink /D htdocs 'new-project'\dist
 
-cd 명령으로 olExam 폴더로 갑니다.
-들어가지고 dir 명령으로 내용을 확인할 수 있으면 성공입니다.
+http://localhost 를 호출해 확인해 봅시다.   
+![](img/2022-02-02-19-47-08.png)
 
-http://localhost 를 호출해 확인해 봅시다.
+<br/>
+
+다음 `OpenLayers` & `GeoServer` 과제에 도전해 보세요.
+
+- 우리가 발행한 `worldmap:ne_110m_admin_0_countries` 레이어로 `TrueSize` 를 구현해보세요.
 
 <br/><br/>
 
