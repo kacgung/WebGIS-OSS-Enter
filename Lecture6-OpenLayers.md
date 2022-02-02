@@ -1,4 +1,5 @@
 ## 웹 GIS 서비스 구현 (OpenLayers)
+---
 
 <br/>
 
@@ -12,6 +13,7 @@
 <br/><br/>
 
 ### Quick Start
+---
 
 <br/>
 
@@ -86,6 +88,7 @@ http://localhost:3000<br/><br/>
 <br/>
 
 ### WMS
+---
 
 <br/>
 
@@ -121,6 +124,7 @@ WMS 레이어(`topp:states`)가 우리 WebGIS(http://localhost:3000) 에 추가�
 <br/>
 
 ### GWC
+---
 
 <br/>
 
@@ -151,6 +155,7 @@ GWC 적용에 대해서 요청 URI(`/gwc/service`)와 그리드셋(`SRS: 'EPSG:3
 <br/><br/>
 
 ### WFS
+---
 
 <br/>
 
@@ -241,6 +246,7 @@ const vectorSource = new VectorSource({
 <br/><br/>
 
 ### Interaction
+---
 
 <br/>
 
@@ -286,6 +292,7 @@ WFS 레이어를 변경해보세요.
 <br/><br/>
 
 ### Truesize
+---
 
 <br/>
 
@@ -329,6 +336,8 @@ function getLatFromFeatureCenter(feature) {
   return Math.cos(center_4326[1] * Math.PI / 180.0); // radian -> degree
 }
 ```
+
+
 
 <br/><br/>
 
