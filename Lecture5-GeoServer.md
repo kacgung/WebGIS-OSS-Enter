@@ -41,7 +41,7 @@ Name에 worldmap, 네임스페이스 URI에 `http://myservice.com` 을 입력하
 먼저 `Directory of spatial files (shapefiles)`를 선택해 ESRI Shape 파일이 있는 폴더를 저장소로 만들어 봅시다.
  
 데이터 저장소 이름에 'worldmap_shape' 입력 후, Shapefile을 포함한 디렉토리 위치의 '탐색' 버튼 눌러 'data/worldmap' 폴더 선택하고, DBF 문자셋으로 `UTF-8`을 선택하고 '저장'을 누릅니다. 만일 `cp949`로 된 한글이 있는 경우 문자셋에 `x-windows-949`를 선택하시면 됩니다.   
-![](2022-02-02-14-26-23.png)
+
 
 자동으로 '새로운 레이어' 화면으로 전환되네요. '발행하기' 링크를 눌러 `ne_110m_admin_0_countries` 레이어 부터 만들어 봅시다. 여기서 '발행하기'란 것은 영어로는 publish로 서버 안의 자료를 인터넷으로 내보낸다는 의미를 가지고 있습니다.
 
