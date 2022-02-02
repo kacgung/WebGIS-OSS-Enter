@@ -9,16 +9,21 @@
 - [Interaction](#Interaction)
 - [Truesize](#Truesize)
 
-<br/><br/>
+<br/>
+<br/>
 
 ## Quick Start
 
 <br/>
 
-`OpenLayers`는 간단히 말해 웹 페이지에 지도를 붙여주는 라이브러리입니다. `OpenLayers`가 자체적으로 지도를 제공하는 것은 아니고, `OSM(Open Street Map), Google Map, 네이버지도, Vworld` 등에서 제공하는 지도데이터를 받아 이를 웹에서 자유롭게 이동, 확대 등이 가능하도록 기능을 제공합니다.<br/><br/>
+`OpenLayers`는 간단히 말해 웹 페이지에 지도를 붙여주는 라이브러리입니다. `OpenLayers`가 자체적으로 지도를 제공하는 것은 아니고, `OSM(Open Street Map), Google Map, Naver Map, Kakao Map, Vworld, GeoServer` 등에서 제공하는 지도데이터를 받아 이를 웹에서 자유롭게 이동, 확대 등이 가능하도록 기능을 제공합니다.
+
+<br/>
 
 먼저 다음을 참고하여 무작정 지도를 띄워 보세요.   
-http://openlayers.org/en/latest/doc/quickstart.html<br/><br/>
+http://openlayers.org/en/latest/doc/quickstart.html
+
+<br/>
 
 소스코드를 [VSCode(Visual Studio Code)](https://code.visualstudio.com) 와 같은 편집기로 복붙(복사하고 붙여넣기)해서 `quickstart.html`라는 파일명으로 저장하세요. `quickstart.html`를 실행하면 지도가 보입니다. 여러분이 처음으로 만든 `WebGIS` 어플리케이션을 확인하세요.<br/><br/> 
 
@@ -28,17 +33,17 @@ http://openlayers.org/en/latest/doc/quickstart.html<br/><br/>
 > 2. Create map container
 > 3. JavaScript to create a simple map
 
-<br/><br/>
+<br/>
 
 OpenLayers는 JavaScript 모듈을 사용하여 작성하는 것을 더 권장합니다. 다음과 같이 Node.js 기반의 개발환경을 구성하세요.
 [Building an OpenLayers Application tutorial](https://openlayers.org/en/latest/doc/tutorials/bundle.html)
 
-<br/><br/>
+<br/>
 
-`코드 에디터` 가 없다면 [VSCode(Visual Studio Code)](https://code.visualstudio.com)를 설치하세요.   
+`Code Editor` 가 없다면 [VSCode(Visual Studio Code)](https://code.visualstudio.com)를 설치하세요.   
 [Git](https://gitforwindows.org)이 없다면 설치하세요.
 
-<br/><br/>
+<br/>
 
 새 프로젝트 폴더를 만드세요.
 ```
@@ -52,8 +57,13 @@ npx create-ol-app
 ```
 npm start
 ```
+
+<br/>
+
 다음에 접속하여 결과물(Quick Start)을 확인하세요.   
-http://localhost:3000<br/><br/>
+http://localhost:3000
+
+<br/>
 
 다음 과제에 도전해 보세요.
 
@@ -70,6 +80,7 @@ http://localhost:3000<br/><br/>
     zoom: 6
   })
 ```
+
 <br/>
 
 `style.css`
@@ -83,6 +94,7 @@ http://localhost:3000<br/><br/>
 }
 ```
 
+<br/>
 <br/>
 
 ## WMS
@@ -119,6 +131,7 @@ Javascript 문법에 맞도록 그리고 오탈자가 없도록 유의하세요.
 WMS 레이어(`topp:states`)가 우리 WebGIS(http://localhost:3000)에 추가된 것을 웹브라우저([Chrome](https://www.google.co.kr/intl/ko/chrome/))에서 확인하세요. 개발자 도구(`F12`) 네트워크 분석을 통해서 응답과 요청 등을 확인해보세요.
 
 <br/>
+<br/>
 
 ## GWC
 
@@ -148,7 +161,8 @@ https://docs.geoserver.org/latest/en/user/geowebcache/using.html
 GWC 적용에 대해서 요청 URI(`/gwc/service`)와 그리드셋(`SRS: 'EPSG:3857'`) 정의를 이해하세요.   
 개발자도구 네트워크분석을 통해서 요청과 응답 등을 살펴보세요.
 
-<br/><br/>
+<br/>
+<br/>
 
 ## WFS
 
@@ -238,7 +252,8 @@ const vectorSource = new VectorSource({
 });
 ```
 
-<br/><br/>
+<br/>
+<br/>
 
 ## Interaction
 
@@ -283,7 +298,8 @@ const map = new Map({
 
 WFS 레이어를 변경해보세요.
 
-<br/><br/>
+<br/>
+<br/>
 
 ## Truesize
 
