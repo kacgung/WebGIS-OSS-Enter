@@ -30,7 +30,7 @@
 
 <br/>
 
-## [공간데이터 배포 (GeoServer)](#Lecture5-GeoServer.md)
+## [공간데이터 배포 (GeoServer)](./Lecture5-GeoServer.md)
 
 <br/>
 
