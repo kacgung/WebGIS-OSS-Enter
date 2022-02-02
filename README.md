@@ -1,6 +1,6 @@
 # 오픈소스 GIS 서비스 개발자 (입문)
 
-> (출처) '오픈소스 GIS 서비스 개발자 입문' 과정, `공간정보아카데미` (http://lxsiedu.or.kr), `OSGeo한국어지부` (https://www.osgeo.kr/)   
+> (출처) '오픈소스 GIS 서비스 개발자 입문' 과정, `[공간정보아카데미](http://lxsiedu.or.kr)`, `[OSGeo한국어지부](https://www.osgeo.kr)`   
 본 자료는 모두 Creative Commons License CC-BY-NC을 따릅니다.    
 본 교재에서 사용하는 샘플 데이터 셋은 실제 정보와 다르므로 교육용 이외에는 사용할 수 없습니다.
 
