@@ -360,6 +360,14 @@ GeoServer에서 지원하는 지도타일 서버캐시를 GeoWebCache 줄여서 
 
 하지만, 실시간 좌표계 변환 기능은 매우 부하가 큰 기능입니다. 때문에 상용 서비스에서는 가능한 한 서비스할 좌표계로 모든 자료를 변환해 놓고 좌표계 변환 없이 서비스 될 수 있도록 해 줍니다.
 
+<br/>
+
+다음 OpenLayers 과제에 도전해 보세요.
+
+- 우리가 발행한 `worldmap:worldmap` 레이어 그룹을 WMS로 조회하는 WebGIS를 구현해보세요.
+- `worldmap:worldmap` 레이어 그룹 GWC로 조회하는 WebGIS를 구현해보세요.
+- 우리가 발행한 `worldmap:ne_110m_admin_0_countries` 레이어를 WFS로 조회하는 WebGIS를 구현해보세요
+
 <br/><br/>
 
 The End
