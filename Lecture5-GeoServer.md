@@ -368,14 +368,6 @@ GeoServer에서 지원하는 지도타일 서버캐시를 GeoWebCache 줄여서 
 
 <br/>
 
-다음 OpenLayers 과제에 도전해 보세요.
-
-- 우리가 발행한 `worldmap:worldmap` 레이어 그룹을 WMS로 조회하는 WebGIS를 구현해보세요.
-- `worldmap:worldmap` 레이어 그룹 GWC로 조회하는 WebGIS를 구현해보세요.
-- 우리가 발행한 `worldmap:ne_110m_admin_0_countries` 레이어를 WFS로 조회하는 WebGIS를 구현해보세요
-
-<br/>
-
 ## 서비스를 위한 Stack 구성
 
 상용 환경에서 웹 지도 서비스를 위한 일반적인 구성은 아래 그림과 같습니다.   
@@ -436,11 +428,16 @@ DocumentRoot 로 지정된 폴더에 심볼릭 링크를 만들면, 여러 폴�
 
     mklink /D htdocs 'new-project'\dist
 
-cd 명령으로 olExam 폴더로 갑니다.
-들어가지고 dir 명령으로 내용을 확인할 수 있으면 성공입니다.
-
 http://localhost 를 호출해 확인해 봅시다.   
 ![](img/2022-02-02-19-47-08.png)
+
+<br/>
+
+다음 OpenLayers&GeoServer 과제에 도전해 보세요.
+
+- 우리가 발행한 `worldmap:worldmap` 레이어 그룹을 WMS로 조회하는 WebGIS를 구현해보세요.
+- `worldmap:worldmap` 레이어 그룹 GWC로 조회하는 WebGIS를 구현해보세요.
+- 우리가 발행한 `worldmap:ne_110m_admin_0_countries` 레이어를 WFS로 조회하는 WebGIS를 구현해보세요
 
 <br/><br/>
 
