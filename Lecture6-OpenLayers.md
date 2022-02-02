@@ -1,5 +1,4 @@
-## 웹 GIS 서비스 구현 (OpenLayers)
----
+# 웹 GIS 서비스 구현 (OpenLayers)
 
 <br/>
 
@@ -12,8 +11,7 @@
 
 <br/><br/>
 
-### Quick Start
----
+## Quick Start
 
 <br/>
 
@@ -87,8 +85,7 @@ http://localhost:3000<br/><br/>
 
 <br/>
 
-### WMS
----
+## WMS
 
 <br/>
 
@@ -119,12 +116,11 @@ TileWMS Source와 TileLayer를 생성하고, Map에 등록하세요.
 
 Javascript 문법에 맞도록 그리고 오탈자가 없도록 유의하세요. 예를 들어, `","` 에 유의하세요.<br/><br/>   
 
-WMS 레이어(`topp:states`)가 우리 WebGIS(http://localhost:3000) 에 추가된 것을 웹브라우저([Chrome](https://www.google.co.kr/intl/ko/chrome/))에서 확인하세요. 개발자 도구(`F12`) 네트워크 분석을 통해서 응답과 요청 등을 확인해보세요.
+WMS 레이어(`topp:states`)가 우리 WebGIS(http://localhost:3000)에 추가된 것을 웹브라우저([Chrome](https://www.google.co.kr/intl/ko/chrome/))에서 확인하세요. 개발자 도구(`F12`) 네트워크 분석을 통해서 응답과 요청 등을 확인해보세요.
 
 <br/>
 
-### GWC
----
+## GWC
 
 <br/>
 
@@ -154,8 +150,7 @@ GWC 적용에 대해서 요청 URI(`/gwc/service`)와 그리드셋(`SRS: 'EPSG:3
 
 <br/><br/>
 
-### WFS
----
+## WFS
 
 <br/>
 
@@ -245,8 +240,7 @@ const vectorSource = new VectorSource({
 
 <br/><br/>
 
-### Interaction
----
+## Interaction
 
 <br/>
 
@@ -291,8 +285,7 @@ WFS 레이어를 변경해보세요.
 
 <br/><br/>
 
-### Truesize
----
+## Truesize
 
 <br/>
 
@@ -336,7 +329,6 @@ function getLatFromFeatureCenter(feature) {
   return Math.cos(center_4326[1] * Math.PI / 180.0); // radian -> degree
 }
 ```
-
 
 
 <br/><br/>
