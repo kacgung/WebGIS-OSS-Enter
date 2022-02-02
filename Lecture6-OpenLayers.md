@@ -42,8 +42,9 @@ OpenLayers는 JavaScript 모듈을 사용하여 작성하는 것을 더 권장�
 
 <br/>
 
+[`Node.js`](https://nodejs.org) 가 없다면 설치하세요.
 `Code Editor` 가 없다면 [VSCode(Visual Studio Code)](https://code.visualstudio.com)를 설치하세요.   
-[Git](https://gitforwindows.org)이 없다면 설치하세요.
+[`Git`](https://gitforwindows.org)이 없다면 설치하세요.
 
 <br/>
 
