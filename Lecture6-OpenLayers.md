@@ -30,10 +30,15 @@ http://openlayers.org/en/latest/doc/quickstart.html<br/><br/>
 
 <br/><br/>
 
-OpenLayers는 JavaScript 모듈을 사용하여 작성하는 것을 더 권장합니다. 다음과 같이 Node.js 기반의 개발환경을 구성하세요. [Building an OpenLayers Application tutorial](https://openlayers.org/en/latest/doc/tutorials/bundle.html) <br/><br/>
+OpenLayers는 JavaScript 모듈을 사용하여 작성하는 것을 더 권장합니다. 다음과 같이 Node.js 기반의 개발환경을 구성하세요.
+[Building an OpenLayers Application tutorial](https://openlayers.org/en/latest/doc/tutorials/bundle.html)
+
+<br/><br/>
 
 `코드 에디터` 가 없다면 [VSCode(Visual Studio Code)](https://code.visualstudio.com)를 설치하세요.   
-[Git](https://gitforwindows.org)이 없다면 설치하세요.<br/><br/>
+[Git](https://gitforwindows.org)이 없다면 설치하세요.
+
+<br/><br/>
 
 새 프로젝트 폴더를 만드세요.
 ```
@@ -111,7 +116,7 @@ TileWMS Source와 TileLayer를 생성하고, Map에 등록하세요.
 
 Javascript 문법에 맞도록 그리고 오탈자가 없도록 유의하세요. 예를 들어, `","` 에 유의하세요.<br/><br/>   
 
-WMS 레이어(`topp:states`)가 우리 WebGIS(http://localhost:3000)에 추가된 것을 웹브라우저([Chrome](https://www.google.co.kr/intl/ko/chrome/))에서 확인하세요. 개발자 도구(`F12`) 네트워크 분석을 통해서 응답과 요청 등을 확인해보세요.
+WMS 레이어(`topp:states`)가 우리 WebGIS(http://localhost:3000) 에 추가된 것을 웹브라우저([Chrome](https://www.google.co.kr/intl/ko/chrome/))에서 확인하세요. 개발자 도구(`F12`) 네트워크 분석을 통해서 응답과 요청 등을 확인해보세요.
 
 <br/>
 
