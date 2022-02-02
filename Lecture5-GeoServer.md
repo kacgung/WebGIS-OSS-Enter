@@ -444,6 +444,27 @@ http://localhost 를 호출해 확인해 봅시다.
 
 <br/>
 
+다음과 같이 Vite.js 설정을 통해서 개발 환경의 Service Stack 을 구성할 수 있습니다.
+
+`vite.config.js`
+```js
+export default {
+  build: {
+    sourcemap: true,
+  },
+  server: {
+    port: 80,
+    proxy: {
+      '/geoserver': 'http://localhost:8080',
+    }
+  },
+}
+```
+
+Apache Httpd 서버 실행 없이 동작함을 확인하세요.
+
+<br/>
+
 다음 `OpenLayers` & `GeoServer` 과제에 도전해 보세요.
 
 - 우리가 발행한 `worldmap:ne_110m_admin_0_countries` 레이어로 `TrueSize` 를 구현해보세요.
