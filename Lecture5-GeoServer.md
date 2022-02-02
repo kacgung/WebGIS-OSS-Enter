@@ -151,6 +151,19 @@ https://openlayers.org/en/latest/examples/vector-wfs.html
 - 필수: GetCapabilities , DescribeCoverage , GetCoverage   
 http://demo.mapserver.org/cgi-bin/wcs?SERVICE=wcs&VERSION=1.0.0&REQUEST=GetCoverage&COVERAGE=modis-001&CRS=EPSG:26915&BBOX=159707,4597395,1400707,5501395&WIDTH=400&HEIGHT=300&FORMAT=GEOTIFF_RGB  
 
+<br/>
+
+## 레이어 그룹과 스타일
+
+앞에서 실습한 각각의 레이어들은 이제 인터넷에 서비스 되어 인터넷 연결만 되면 어디서든 불러서 활용할 수 있는 상태가 되었습니다. 이제 하나의 그룹으로 만들어 보겠습니다.
+
+GeoServer 관리자 화면에서 [레이어 그룹] 메뉴를 선택하고 [새로운 레이어 그룹 생성하기] 버튼을 누릅니다.
+
+[데이터] 탭에서 [레이어 추가하기…] 버튼을 눌러 NE1_50M_SR_W, ne_110m_admin_0_countries, ne_110m_populated_places 레이어들을 차례로 추가합니다. [데이터 최소경계 영역 계산하기] 버튼을 눌러 영역 값을 입력합니다.
+이름에 ‘worldmap’을 입력하고 [저장]을 누릅니다.   
+![](img/2022-02-02-15-27-13.png)
+
+[레이어 미리보기] 메뉴로 가서 worldmap 그룹을 지도로 봅시다.
 
 
 
