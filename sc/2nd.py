@@ -5,11 +5,16 @@ from qgis.analysis import QgsGeometryAnalyzer
 # 캔버스 초기화
 QgsMapLayerRegistry.instance().removeAllMapLayers()
 
+# DB 접속정보
+uri = QgsDataSourceURI()
+uri.setConnection("localhost", "5432", "osgeo", "postgres", "postgres")
+
 start = timeit.default_timer()
 pre = start
 
 # 도로 레이어 불러
-roadLayer = iface.addVectorLayer("/Data/road_link2.shp", "road", "ogr")
+uri.setDataSource("public", "road_link2", "geom")
+roadLayer = iface.addVectorLayer(uri.uri(False), "road", "postgres")
 
 crr = timeit.default_timer()
 print (u"도로 읽기 : {}ms".format(int((crr - pre)*1000)))
@@ -41,7 +46,8 @@ print (u"버퍼 파일 읽기 : {}ms".format(int((crr - pre)*1000)))
 pre = crr
 
 # 지하철역 불러
-stationLayer = iface.addVectorLayer("/Data/subway_station.shp", "station", "ogr")
+uri.setDataSource("public", "subway_station", "geom")
+stationLayer = iface.addVectorLayer(uri.uri(False), "road", "postgres")
 
 crr = timeit.default_timer()
 print (u"지하철역 읽기 : {}ms".format(int((crr - pre)*1000)))

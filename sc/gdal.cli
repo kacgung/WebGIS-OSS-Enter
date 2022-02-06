@@ -1,0 +1,27 @@
+
+ogr2ogr -s_srs EPSG:5186 -t_srs "+proj=tmerc +lat_0=38 +lon_0=127.0028902777778 +k=1 +x_0=200000 +y_0=500000 +ellps=bessel +units=m +no_defs +towgs84=-115.80,474.99,674.11,1.16,-2.31,-1.63,6.43" -f "ESRI Shapefile" --config SHAPE_ENCODING "CP949" firestation_5174.shp firestation.shp
+
+ogr2ogr -s_srs EPSG:5186 -t_srs EPSG:3857 -f "ESRI Shapefile" --config SHAPE_ENCODING "CP949" firestation_3857.shp firestation.shp
+
+ogr2ogr -s_srs EPSG:5186 -t_srs EPSG:3857 -f "ESRI Shapefile" --config SHAPE_ENCODING "CP949" river_3857.shp river.shp
+
+
+ogr2ogr -f "GPKG" output.gpkg PG:"host=localhost dbname=osgeo user=postgres password=postgres schemas=public tables=admin_emd,admin_sgg,admin_sid,building,firestation,healthcenter,policestation,river,road_link2,road_link_geographic,stores,subway,subway_station,wardoffice"
+
+
+gdal_translate -of JPEG RenderData.tiff RenderData.jpg
+gdal_translate -of GPKG ecvam.tif ecvam.gpkg
+
+
+gdalwarp -s_srs EPSG:4326 -t_srs EPSG:3857 -of GTiff -r cubic RenderData.tiff RenderData_3857.tif
+gdalwarp -s_srs EPSG:5186 -t_srs EPSG:3857 -of GTiff -r cubic ecvam.tif ecvam_3857.tif
+gdalwarp -s_srs EPSG:5186 -t_srs EPSG:3857 -of GTiff ecvam.tif ecvam_3857_default.tif
+gdalwarp -s_srs EPSG:5186 -t_srs EPSG:3857 -of GPKG ecvam.gpkg ecvam_gpkg_3857.tif
+
+
+gdaladdo -r average RenderData.tiff 2 4 8 16 32
+gdaladdo ecvam_3857_default.tif 2 4 8 16 32
+gdaladdo ecvam_3857_default.tif 64
+gdaladdo ecvam.gpkg 2 4 8 16 32
+gdaladdo ecvam_gpkg_3857.gpkg 2 4 8 16 32 64
+
