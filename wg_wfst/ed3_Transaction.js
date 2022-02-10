@@ -1,4 +1,5 @@
-import 'ol/ol.css';
+import './style.css';
+
 import { Map, View, Collection } from 'ol';    
 import TileLayer from 'ol/layer/Tile';
 
@@ -10,7 +11,7 @@ import { bbox as bboxStrategy } from 'ol/loadingstrategy.js';
 import { Style, Stroke, Fill, Circle } from 'ol/style';
 import { DragPan, MouseWheelZoom, Draw, Modify, Snap } from 'ol/interaction';
 
-import $ from "jquery";
+import $ from 'jquery';
 
 const map = new Map({
   target: 'map',
