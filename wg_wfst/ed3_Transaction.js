@@ -168,7 +168,7 @@ const transactWFS = (tType, feature) => {
 
 const reset = () => {
   features.clear();
-  buildingVectorSource.clear();
+  buildingVectorSource.refresh();
   buildingWMSSource.updateParams({ '_t': Date.now() });
   modify.setActive(false);
   draw.setActive(true);
