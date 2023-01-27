@@ -15,13 +15,22 @@
 
 https://www.youtube.com/watch?v=IeTybKL1pM4
 
+<br/>
+
+
 오픈소스는 좋은 예가 훈민정음 입니다.
 
 ![](img/2023-01-27-13-47-40.png)
 
 출처: https://i.ytimg.com/vi/kBDv_XhgsGA/maxresdefault.jpg
 
+<br/>
+
+
 누가 만들었는지도 분명하고, 많은 노력을 들여 만들었지만, 누구나 무료로 사용할 수 있게 공개되었고, 이를 바탕으로 많은 문화가 발전했으며, 지금 이 강의도 진행할 수 있습니다.
+
+<br/>
+
 
 ## 오픈소스 SW 라이선스 종류와 특징
 
