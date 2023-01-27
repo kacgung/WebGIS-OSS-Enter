@@ -8,7 +8,13 @@
 
 본 교육은 `The True Size of… `(https://thetruesize.com) 와 유사한 사이트를 처음부터 끝까지 `Open Source GIS`로 만들어 보는 것입니다.
 
-- 오픈소스 GIS
+<br/>
+
+![](img/2023-01-27-11-40-29.png)
+
+<br/>
+
+- 오픈소스 GIS 알아보기
 - 공간데이터 다루기 (QGIS)
 - 공간 DBMS 구축 (PostGIS)
 - [공간데이터 배포 (GeoServer)](Lecture5-GeoServer.md)
