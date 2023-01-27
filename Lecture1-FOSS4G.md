@@ -238,7 +238,6 @@ Notepad++
 
 - 텍스트 설정파일을 편집하고 웹코딩도 합니다.
 - https://notepad-plus-plus.org/downloads/v7.9.5/
-- 32-Bit x86 버전을 선택합니다.
 
 ![](img/2023-01-27-14-57-18.png)
 
