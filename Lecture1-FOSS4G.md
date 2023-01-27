@@ -21,7 +21,7 @@ https://www.youtube.com/watch?v=IeTybKL1pM4
 
 ![](img/2023-01-27-13-47-40.png)
 
-출처: https://i.ytimg.com/vi/kBDv_XhgsGA/maxresdefault.jpg
+출처: https://i.ytimg.com
 
 <br/>
 
@@ -240,7 +240,6 @@ https://live.osgeo.org/
 
 ![](img/2023-01-27-14-57-18.png)
 
-<br/>
-
+<br>
 
 The End
