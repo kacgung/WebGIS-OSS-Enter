@@ -161,9 +161,7 @@ https://olis.or.kr/
 <br>
 
 
-
 ## FOSS4G Stack 구성 이해
-
 
 GIS 서비스를 위해서는 보통 여러 계층의 여러 소프트웨어가 연결되어 구성됩니다.
 이를 Stack이라 부릅니다.
@@ -193,15 +191,56 @@ OSGeo Live를 둘러보세요.
 
 https://live.osgeo.org/
 
-
 <br/>
-
 
 
 ## 실습에 필요한 SW 설치
 
+<br>
 
+QGIS
 
+- 서비스용은 아니지만 데이터를 확인할 때 사용합니다.
+- https://qgis.org/ko/site/forusers/download.html
+- 보통 64 비트를 사용합니다.
+- 설치관리자로 쉽게 설치할 수 있습니다.
+- 예제는 안설치해도 됩니다.
+- OS X, Linux, BSD, 안드로이드용 버전도 있습니다.
+
+![](img/2023-01-27-14-56-11.png)
+
+<br>
+
+PostgreSQL
+
+- 공간정보를 저장하는 PostGIS의 기반이 되는 DBMS입니다.
+- https://www.enterprisedb.com/downloads/postgres-postgresql-downloads#windows
+- PostgreSQL, Windows x86-64 버전을 받아 설치합니다.
+- Superuser(postgres) 암호로 postgres를 입력합니다. 실습을 위해 통일합니다.
+- BigSQL 배포본으로 설치시 PostGIS가 설치 어려우니 EDB 배포본으로 설치하는 것이 좋습니다.
+
+![](img/2023-01-27-14-56-37.png)
+
+<br>
+
+PostGIS
+
+- PostgreSQL의 버전에 맞는 버전 설치가 필수입니다.
+- PostgreSQL 설치 마지막 단계의 Stack Builder로 설치 가능합니다.
+- Spatial Extension 밑의 PostGIS 을 선택해 설치합니다.
+- 샘플 DB 만들기 옵션을 선택하는 것이 좋습니다.	 
+
+![](img/2023-01-27-14-56-56.png)
+
+<br>
+
+Notepad++
+
+- 텍스트 설정파일을 편집하고 웹코딩도 합니다.
+- https://notepad-plus-plus.org/downloads/v7.9.5/
+- 32-Bit x86 버전을 선택합니다.
+
+![](img/2023-01-27-14-57-18.png)
 
 <br/>
 
