@@ -15,7 +15,7 @@
 
 https://www.youtube.com/watch?v=IeTybKL1pM4
 
-오픈소스는 좋은 예가 `훈민정음` 입니다.
+오픈소스는 좋은 예가 훈민정음 입니다.
 
 ![](img/2023-01-27-13-47-40.png)
 
