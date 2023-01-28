@@ -110,7 +110,7 @@ http://www.nsdi.go.kr/lxportal/?menuno=2679
 ## 기타 쓸만한 데이터 확보처
 
 전세계 위성영상도 쉽게 받을 수 있습니다. NASA에서 Blue Marble 이라는 이름으로 위성영상과 지형등의 자료로 각 월별 영상을 잘 만들어 두었습니다.<br>
-https://neo.sci.gsfc.nasa.gov/view.php?datasetId=BlueMarbleNG-TB
+https://neo.gsfc.nasa.gov/view.php?datasetId=BlueMarbleNG-TB
 
 <br>
 
