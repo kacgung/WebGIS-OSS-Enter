@@ -105,14 +105,19 @@ http://www.nsdi.go.kr/lxportal/?menuno=2679
 
 국가중점개방데이터들은 대부분 이처럼 로그인 없이 받을 수 있습니다. 하지만, 국가공간정보포털의 다른 자료들은 가입하고 로그인 해야만 받을 수 있는 경우가 많습니다.
 
-<br>
+<br><br>
+
 
 ## 기타 쓸만한 데이터 확보처
+
+<br>
 
 전세계 위성영상도 쉽게 받을 수 있습니다. NASA에서 Blue Marble 이라는 이름으로 위성영상과 지형등의 자료로 각 월별 영상을 잘 만들어 두었습니다.<br>
 https://neo.gsfc.nasa.gov/view.php?datasetId=BlueMarbleNG-TB
 
 <br>
+
+![](img/2023-01-28-17-46-45.png)
 
 File Type으로 GeoTIFF를 선택하고 0.1 degrees 영상을 다운 받습니다.
 
@@ -122,103 +127,96 @@ File Type으로 GeoTIFF를 선택하고 0.1 degrees 영상을 다운 받습니�
 
 <br>
 
-### 국가공간정보유통센터
-- 국가공간정보유통센터(사이트 바로가기)
-- 개인 또는 기관으로 가입 필수
-- 구매 또는 무료 공간정보 신청 가능
-- 도로명 전자지도(새주소 공간데이터), 해양주제도, 국가공간정보(공간정보오픈플랫폼에서 서비스하는 주제도 일부), 보행자용 DB, 민간 공간정보, 공공데이터 등을 신청하여 무료로 활용 가능
-
 ### 공공데이터포털
-- 공공데이터포털(사이트 바로가기)
+https://www.data.go.kr
 - 가장 많은 종류의 데이터를 제공하며, 대부분의 공공기관 데이터 공개 지원
 - 가입 후 파일, Open API 등을 이용해 활용 가능
 
 ### 국가통계포털
-- 국가통계포털(사이트 바로가기)
+https://kosis.kr
 - 국내외 통계 데이터를 행정구역단위로 엑셀, CSV, 텍스트 등으로 다운로드
 
 ### 통계지리정보
-- 통계지리정보(사이트 바로가기)
+https://sgis.kostat.go.kr
 - 가입 필수
 - 집계구, 통계지역경계(시도/시군구/읍면동/도시화지역,도시권경계 등), 센서스지도(하천, 건물, 도로, 철도, 등고 등) 신청 후 다운로드
 
 ### 건축데이터 민간개방 시스템
-- 건축데이터 민간개방 시스템(사이트 바로가기)
+https://open.eais.go.kr
 - 가입 필수
 - 건축물 인허가정보, 건축물대장정보 제공
 
 ### 도로명주소 안내시스템
-- 도로명주소 안내시스템(사이트 바로가기)
-- 공간데이터는 국가공간정보유통센터를 통해서 제공
+https://www.juso.go.kr
 - 매칭테이블 및 주소변환서비스, API 등은 이 사이트를 통해 제공
 
 ### 국가교통DB센터
-- 국가교통DB센터(사이트 바로가기)
+https://www.ktdb.go.kr
 - 가입 필수
 - 도로네트워크, 철도 등 교통주제도, OD 등 자료 신청 후 수령
 
 ### 표준노드링크관리시스템
-- 표준노드링크관리시스템(사이트 바로가기)
+https://www.its.go.kr
 - 가입은 필요없으며, 표준노드링크관리시스템에서 생산한 도로네트워크 다운로드
 
 ### 공간정보오픈플랫폼
-- 공간정보오픈플랫폼(사이트 바로가기)
+https://www.vworld.kr
 - 가입 및 인증키 필수
 - OGC 표준 스펙(WMS, WFS) 또는 Open API를 통해 웹에서 사용 가능
 
-### 지방행정데이터개방
-- 지방행정데이터개방(사이트 바로가기)
+### 지방행정인허가데이터개방
+https://www.localdata.go.kr
 - 지방자치단체가 보유, 관리하는 생활관련 데이터의 개방
-- 일반음식점, 관광업소 등 우선 개방, 이후 의료, 보건 등 48분야 530여종 확대 개방 예정
+- 일반음식점, 관광업소 등 우선 개방, 이후 의료, 보건 등
 
 ### 공동주택관리정보시스템
-- 공동주택관리정보시스템(사이트 바로가기)
-- 공동주택 단지정보 및 공동주택 가격정보
+http://www.k-apt.go.kr
+- 공동주택 단지정보 및 관리비, 회계감사 등
 
 ### 부동산공시가격알리미
-- 부동산공시가격알리미(사이트 바로가기)
+https://www.realtyprice.kr
 - 표준지공시지가, 개별공시지가 검색
 - 개별, 표준, 공동주택가격 검색
 
 ### 토양지하수 정보시스템
-- 토양지하수 정보시스템(사이트 바로가기)
+https://sgis.nier.go.kr
 - 토양측정망, 지하수 수질측정망, 골프장 농약사용량 주소정보로 제공
 
 ### 지방자치단체 공공데이터 포털
-- 서울 열린 데이터 광장(사이트 바로가기)
-- 부산 공공데이터포털(사이트 바로가기)
-- 강원 공공데이터(사이트 바로가기)
-- 경기도 공공데이터 공개 포털(사이트 바로가기)
-- 경상북도 공공데이터포털시스템(사이트 바로가기)
-- 전북 3.0 포털(사이트 바로가기)
-- 제주특별자치도 공공데이터포털(사이트 바로가기)
-- 수원 공공데이터포털(사이트 바로가기)
+- 서울 열린 데이터 광장(https://data.seoul.go.kr)
+- 부산 공공데이터포털(https://data.busan.go.kr)
+- 경기도 공공데이터 개방포털(https://data.gg.go.kr)
+- 경상북도 공공데이터포털시스템(https://gb.go.kr/Main/open_contents/section/datastat)
+- 전북 빅데이터 허브(https://www.bigdatahub.go.kr)
+- 제주데이터허브(https://www.jejudatahub.net)
+- 수원시 빅데이터 포털(https://data.suwon.go.kr) 등
 
 ### OpenStreetMap(OSM)
-- OpenStreetMap(사이트 바로가기)
+https://www.openstreetmap.org
 - 가장 인기있는 참여형 지도제작 플랫폼 및 데이터
 - ODBL 라이선스에 따라 사용
 - Open API 또는 데이터 직접 다운로드가 가능하며, QGIS에서 직접 Import도 가능
 
 ### EarthExplorer
-- USGS EarthExplorer(사이트 바로가기)
+https://earthexplorer.usgs.gov
+- USGS EarthExplorer
 - 다양한 전세계 위성영상을 받을 수 있음
 
 ### ASTER GDEM
-- ASTER GDEM(사이트 바로가기)
+https://asterweb.jpl.nasa.gov
 - 전세계 30m 해상도 DEM 제공
 - 가입 후 도엽별로 선택하고 신청 후 인증 - 사이트 바로가기
 
 ### SRTM(Shuttle Radar Topography Mission
-- SRTM(Shuttle Radar Topography Mission)(사이트 바로가기)
+https://www2.jpl.nasa.gov/srtm
 - 30m(일부지역) ~ 500m 등 다양한 해상도의 전세계 DEM 제공
 
 ### NASA’s Socioeconomic Data and Applications Center (SEDAC)
-- SEDAC(사이트 바로가기)
+https://sedac.ciesin.columbia.edu
 - Socioeconomic data (agriculture, climate, conservation, governance, hazards, health, infrastructure, land use, marine and coastal, population, poverty, remote sensing, sustainability, urban and water)
 
 ### UNEP Environmental Data Explorer
-- UNEP(사이트 바로가기)
+https://unepgrid.ch
 - Freshwater, population, forests, emissions, climate, disasters, health and GDP spatial and non-spatial data.
 
 
