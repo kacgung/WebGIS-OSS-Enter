@@ -16,7 +16,7 @@
 
 - [오픈소스 GIS 알아보기](Lecture1-FOSS4G.md)
 - [공간데이터 다루기 (QGIS)](Lecture2-GeoData.md)
-- 공간 DBMS 구축 (PostGIS)
+- [공간 DBMS 구축 (PostGIS)](Lecture3-GDB.md)
 - [공간데이터 배포 (GeoServer)](Lecture5-GeoServer.md)
 - [웹 GIS 서비스 구현 (OpenLayers)](Lecture6-OpenLayers.md)
 
