@@ -229,6 +229,8 @@ https://live.osgeo.org/
 - Spatial Extension 밑의 PostGIS 을 선택해 설치합니다.
 - 샘플 DB 만들기 옵션을 선택하는 것이 좋습니다.	 
 
+![](img/2023-01-29-01-36-03.png)
+
 ![](img/2023-01-27-14-56-56.png)
 
 <br>
