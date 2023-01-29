@@ -214,15 +214,91 @@ print (u"전체 수행시간 : {}ms".format(int((crr - start)*1000)))
 
 ```
 
+<br><br>
 
+### 3세대 방식 : 기존 분석과정 그대로 SQL로 분석
 
 <br>
+
+이제 앞에서 해본 전통적인 GIS 작업을 그대로 SQL로 바꾼 것입니다.
+얼마나 짧아졌는지에 집중해 봐 주세요.
+
+```sql
+select st.*
+from subway_station as st,
+(
+    select st_buffer(st_union(geom), 500) as geom
+    from road_link2 where lanes >=8
+) as buf
+where st_within(st.geom, buf.geom)
+```
+
+도로중심선 레이어에서 8차선 이상만 필터링 해, st_buffer 함수로 버퍼링하고, 그 결과를 지하철역 레이어와 st_within 함수를 조건으로 JOIN 하는 것으로 끝입니다.
+
+<br><br>
+
+### 3세대 방식 개선 : DB에서 효율적으로 동작 가능한 SQL로 분석
+
+<br>
+
+앞의 공간 SQL을 좀더 RDBMS의 장점을 살리도록 바꿀 수도 있습니다.
+
+```sql
+select * from subway_station
+where id in
+(
+    select distinct st.id
+    from subway_station as st, road_link2 as road
+    where road.lanes >= 8
+        and ST_Distance(st.geom, road.geom) <= 500
+)
+```
+<br>
+
+핵심은 시간이 많이 소요되는 버퍼링 과정 대신 st_distance 함수를 써서 거리 계산으로 바꿔버렸다는 것입니다. 이렇게 DBMS에서는 공간연산 보다는 숫자계산이 월씬 빠릅니다.
+
+주의할 것은 이렇게 JOIN을 이용하는 경우 동일한 데이터가 여러번 나오는 경우가 있습니다. 이를 피하기 위해 위 소스의 앞 2줄처럼 필요한 공간객체의 id 값만을 서브쿼리 내에서 조회한 것을 다시 원하는 레이어의 where 절 조건으로 주는 것이 좋습니다.
+
+<br><br>
+
+### 3세대 방식 더 개선 : 더 효율적인 함수로 변경
+
+<br>
+
+조금 더 고민하면 이를 더 빨리 할 수도 있습니다.
+
+```sql
+select * from subway_station
+where id in
+(
+    select distinct st.id
+    from subway_station as st, road_link2 as road
+    where road.lanes >= 8
+        and ST_DWithin(st.geom, road.geom, 500)
+)
+```
+
+<br>
+
+비슷해 보이지만 st_distance 대신 st_dwithin을 사용해 거리기준 필터링을 했다는 점에서 차이가 있습니다.
+st_distance를 사용한 방식에서는 모든 지하철역과 모든 도로간 거리를 다 계산해 500미터 이내만 필터링 했습니다.
+
+하지만, st_dwithin을 사용한 방식은 내부적으로 먼저 최소영역사각형(MBR, Minimum Bounded Rectangle)으로 판단해 500미터 이내에 들어올 가능성이 없는 것은 아예 거리계산도 안하고 걸러내고 가는성이 있는 것들만 거리계산을 한다는 차이가 있습니다.
+
+앞에서 살펴본 방식들의 성능을 비교해 본 그림입니다.
+노란색의 4번째 방식이 어마어마하게 빠르지요? 그림에는 없는 5번째 방식은 4번째 방식보다 10배 정도 빠릅니다.
+
+![](img/2023-01-29-13-05-29.png)
+
+<br><br>
 
 ## 공간자료를 효과적으로 다루는 커맨드라인 명령어
 
-
-
 <br>
+
+
+
+<br><br>
 
 The End
 
