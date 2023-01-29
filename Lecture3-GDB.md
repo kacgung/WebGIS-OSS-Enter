@@ -428,26 +428,11 @@ AND ST_Intersects(ST_Buffer(shop.geom, 500), metro.geom);
 <br>
 
 본 강의에서 배우지 않는 강력한 공간 SQL 들이 많이 있습니다.
-다음 링크의 PostGIS Reference에서 공간정보 함수들의 정보를 얻을 수 있습니다.
-http://postgis.net/docs/manual-2.4/reference.html 
+다음 링크의 PostGIS Reference에서 공간정보 함수들의 정보를 얻을 수 있습니다.   
+https://postgis.net/docs/manual-3.0/postgis-ko_KR.html
 
-다음 OSGeo 한국어지부 문서저장소에서 찾아보시면 한글로 된 자료도 있습니다.
-http://tinyurl.com/osgeo-kr-docs 
-
-<br>
-
-
-
-<br>
-
-
-
-<br>
-
-## 공간자료를 효과적으로 다루는 커맨드라인 명령어
-
-<br>
-
+다음 OSGeo 한국어지부 문서저장소에서 찾아보시면 한글로 된 자료도 있습니다.   
+http://tinyurl.com/osgeo-kr-docs   
 
 
 <br>
