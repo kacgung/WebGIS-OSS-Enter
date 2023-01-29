@@ -6,8 +6,9 @@
 
 - [공간 DBMS 준비하기](#공간-dbms-준비하기)
 - [PostGIS에 공간정보 올리기](#postgis에-공간정보-올리기)
-- [공간 SQL 맛보기](#공간-sql-맛보기)
 - [공간 SQL 실습](#공간-sql-실습)
+
+- [공간 SQL 맛보기](#공간-sql-맛보기)
 - [공간자료를 효과적으로 다루는 커맨드라인 명령어](#공간자료를-효과적으로-다루는-커맨드라인-명령어)
 
 <br>
@@ -246,15 +247,200 @@ PostGIS에 공간정보를 올리는 툴은 이 밖에도 shp2pgsql 명령이나
 
 <br>
 
-## 공간 SQL 맛보기
-
-<br>
-
-
 ## 공간 SQL 실습
 
 <br>
 
+먼저 간단한 일반 SQL 부터 시작해 보겠습니다.
+pgAdmin으로 가서 새 Query 창을 띄우고 실습하시면 됩니다.
+
+<br>
+
+```
+SELECT *
+FROM stores;
+```
+
+매장들이 들어있는 store 테이블의 내용을 모두 보는 쿼리입니다.
+공간데이터 컬럼이 어찌 보이는지는 한번 더 확인해 보세요.
+혹시 빈칸처럼 보여도 실제로는 비어있지는 않습니다.
+
+<br>
+
+```
+SELECT *
+FROM stores
+WHERE brand='이마트';
+```
+
+매장 중 이마트만 필터링해 보는 쿼리입니다.
+
+<br>
+
+```
+SELECT COUNT(nam)
+FROM stores
+WHERE addr like '%영등포구%';
+```
+
+영등포구의 매장만도 간단히 필터링 할 수 있습니다.
+
+<br>
+
+```
+SELECT brand, COUNT(nam) as "점포수"
+FROM stores
+GROUP BY brand;
+```
+
+각 브랜드별 점포수를 조회하기 위해 집계 함수인 COUNT를 사용했습니다.
+집계함수를 사용할 때는 보통 GROUP BY 문이 필요합니다.
+
+```
+SELECT brand, AVG(char_length(nam)), STDDEV(char_length(nam))
+FROM stores GROUP BY brand;
+```
+
+평균과 분산을 구하는 정도는 DB에게는 일도 아니지요.
+
+<br>
+
+```
+SELECT ST_AsText(geom)
+FROM firestation;
+```
+
+드디어 공간 SQL입니다. 지오메트리를 텍스트로 만들어 사람이 알아볼 수 있는 형태로 조회했네요.
+ST_로 시작하는 함수가 공간 SQL을 위한 함수입니다.
+
+<br>
+
+```
+SELECT link_id, ST_Length (geom)
+FROM road_link_geographic;
+```
+
+길이를 구하는 것 쯤이야 쉽지요.
+
+<br>
+
+```
+SELECT link_id, ST_Length(ST_Transform(geom,5179))
+FROM road_link_geographic;
+```
+
+하지만, 경위도 등 미터단위가 아닌 좌표계에서 거리나 면적을 계산하면 엉뚱한 값이 나옵니다.
+이럴 때는 미터단위를 사용하는 좌표계로 변환하여 계산하면 됩니다.
+
+<br>
+
+```
+SELECT ufid, ST_Area(ST_Transform(geom,5179))
+FROM building
+LIMIT 100;
+```
+
+면적도 어려울 것이 없지요. 
+마지막 줄의 LIMIT 100은 결과중 100개만 보여주는 것인데, 자료량이 많을 때 테스트시 특히 유용합니다.
+웹에서의 페이징 등의 조회기법을 위해서도 사용합니다.
+
+<br>
+
+```
+SELECT ufid, ST_Area(geom)
+FROM building
+LIMIT 100;
+```
+
+하지만, 앞에서의 SQL에는 불필요한 좌표계 변환이 들어있습니다.
+원 자료의 5186 좌표계도 미터단위 TM 직각좌표계고, 변환한 5179 좌표계도 미터단위 TM 직각좌표계여서 둘 좌표계가 타원체가 다르기는 하지만 면적 계산시에는 전혀 좌표계 변환할 필요가 없습니다.
+
+<br>
+
+```
+ALTER TABLE stores
+ADD Column buffer geometry(Polygon,4326);
+```
+
+기존 테이블에 공간데이터를 저장할 수 있는 컬럼을 추가하는 것도 쉽습니다.
+이제 sotres 테이블은 한 행당 2가지 공간자료가 들어갈 수 있게 되었습니다.
+
+<br>
+
+```
+UPDATE stores
+SET buffer=ST_Transform(ST_Buffer(geom, 30), 4326);
+```
+
+이렇게 하면 방금 만든 buffer라는 컬럼에 실제로 30미터 버퍼를 만든 것을 경위도로 변환해 저장하게 됩니다.
+만약 경위도로 들어오는 사람이나 자동차의 실시간 위치를 파악해 점포주변 30미터에 들어오면 쿠폰을 발송하는 등의 시스템을 만들려면 이렇게 자료를 다음어 두면 좋겠지요.
+
+<br>
+
+```
+SELECT ST_AsGeoJSON(ST_Transform(geom, 4326))
+FROM stores;
+SELECT ST_AsGML(geom) FROM stores;
+```
+
+인터넷 상에서 자료를 교환할 때 보통 JSON이나 XML을 사용합니다.
+공간정보를 위한 JSON이 GeoJSON이라는 표준이고, XML의 경우는 GML이란 표준입니다.
+
+주의할 것은 위의 ST_AsGeoJSON, ST_AsGML 함수는 도형부분만을 반환하고 속성은 넣어주지 않는다는 것입니다. 실제로 교환시에는 아래 예처럼 속성까지 포함된 완전한 형태로 전달하도록 코딩해 주어야 합니다.
+
+![](img/2023-01-29-10-13-13.png)
+![](img/2023-01-29-10-13-21.png)
+
+<br>
+
+```
+SELECT ST_NPoints(geom) as num_point
+FROM road_link2
+ORDER BY num_point DESC
+limit 100;
+```
+
+도형이 몇 개의 점으로 이루어졌는지 등 도형에 관한 상세한 정보도 조회할 수 있습니다.
+
+<br>
+
+```
+SELECT shop.nam as "매장명", metro.nam as "인근역"
+FROM stores as shop, subway_station as metro
+WHERE ST_Intersects(ST_Buffer(shop.geom, 500), metro.geom);
+```
+
+앞에서도 해 봤듯이 공간연산을 조건절에 추가해 공간을 기준으로 JOIN 할 수도 있습니다.
+
+<br>
+
+```
+SELECT shop.nam as "매장명", metro.nam as "인근역"
+FROM stores as shop, subway_station as metro
+WHERE shop.addr LIKE '%영등포%'
+AND ST_Intersects(ST_Buffer(shop.geom, 500), metro.geom);
+```
+
+공간연산 뿐 아니라 일반 속성에 대한 연산까지 추가해 더욱 효과적인 자료조회가 가능합니다.
+
+<br>
+
+본 강의에서 배우지 않는 강력한 공간 SQL 들이 많이 있습니다.
+다음 링크의 PostGIS Reference에서 공간정보 함수들의 정보를 얻을 수 있습니다.
+http://postgis.net/docs/manual-2.4/reference.html 
+
+다음 OSGeo 한국어지부 문서저장소에서 찾아보시면 한글로 된 자료도 있습니다.
+http://tinyurl.com/osgeo-kr-docs 
+
+<br>
+
+
+
+<br>
+
+
+
+<br>
 
 ## 공간자료를 효과적으로 다루는 커맨드라인 명령어
 
