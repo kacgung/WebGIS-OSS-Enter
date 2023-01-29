@@ -296,6 +296,8 @@ GROUP BY brand;
 각 브랜드별 점포수를 조회하기 위해 집계 함수인 COUNT를 사용했습니다.
 집계함수를 사용할 때는 보통 GROUP BY 문이 필요합니다.
 
+<br>
+
 ```
 SELECT brand, AVG(char_length(nam)), STDDEV(char_length(nam))
 FROM stores GROUP BY brand;
