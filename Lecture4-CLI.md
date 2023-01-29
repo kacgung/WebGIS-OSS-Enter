@@ -38,7 +38,7 @@ GIS 엔진이 파일을 직접 읽는 형태를 1세대, 용량 등의 한계를
 - 3세대 방식 개선 : DB에서 효율적으로 동작 가능한 SQL로 분석
 - 3세대 방식 더 개선 : 더 효율적인 함수로 변경
 
-<br>
+<br><br>
 
 ### 1세대 방식 : 파일기반으로 GIS 툴을 이용해 분석
 
@@ -120,8 +120,101 @@ print (u"결과 파일 저장 : {}ms".format(int((crr - pre)*1000)))
 print (u"========================")
 print (u"전체 수행시간 : {}ms".format(int((crr - start)*1000)))
 
+```
+
+![](img/2023-01-29-12-49-05.png)
+
+<br><br>
+
+### 2세대 방식 : DB에서 데이터 불러와 GIS 툴을 이용해 분석
+
+<br>
+1세대 방식을 데이터 소스만 바꿔 DB에서 실행하도록 한 것입니다.
+DB 접속정보를 설정하고 이를 이용해 자료를 불러오는 방식에 집중해 보시면 좋습니다.
+
+이 샘플데이너는 너무 크기가 작아 2세대 방식의 장점을 살릴 수는 없습니다.
+
+```py
+#-*- coding: utf-8 -*- QGIS3
+
+# 캔버스 초기화
+QgsProject.instance().removeAllMapLayers()
+iface.mapCanvas().refresh()
+
+# 타이머 준비
+import timeit
+start = timeit.default_timer()
+pre = start
+
+# 도로(DB) 읽기
+uri = QgsDataSourceUri()
+uri.setConnection("localhost", "5432", "osgeo", "postgres", "postgres")
+uri.setDataSource("public", "road_link2", "geom")
+roadLayer = iface.addVectorLayer(uri.uri(False), "road(DB)", "postgres")
+
+crr = timeit.default_timer()
+print (u"도로(DB) 읽기 : {}ms".format(int((crr - pre)*1000)))
+pre = crr
+
+# 8차선 이상 선택
+roadLayer.selectByExpression('"LANES" >= 8', QgsVectorLayer.SetSelection)
+count = roadLayer.selectedFeatureCount()
+print("selected features = " + str(count))
+
+crr = timeit.default_timer()
+print (u"8차선 이상 선택 : {}ms".format(int((crr - pre)*1000)))
+pre = crr
+
+# 500미터 버퍼 분석
+bufferLayer = QgsVectorLayer("Polygon?crs=epsg:5186&index=yes", "buffer500", "memory")
+provider = bufferLayer.dataProvider()
+bufferLayer.startEditing()
+bufferFeature = QgsFeature(provider.fields())
+
+features = roadLayer.selectedFeatures()
+for feature in features:
+    bufferFeature.setGeometry(feature.geometry().buffer(500, 8))
+    provider.addFeatures([bufferFeature])
+
+bufferLayer.commitChanges()
+QgsProject.instance().addMapLayer(bufferLayer)
+iface.mapCanvas().refresh()
+
+crr = timeit.default_timer()
+print (u"500미터 버퍼 분석 : {}ms".format(int((crr - pre)*1000)))
+pre = crr
+
+# 지하철역(DB) 읽기
+uri.setDataSource("public", "subway_station", "geom")
+stationLayer = iface.addVectorLayer(uri.uri(False), "subway_station(DB)", "postgres")
+
+crr = timeit.default_timer()
+print (u"지하철역(DB) 읽기 : {}ms".format(int((crr - pre)*1000)))
+pre = crr
+
+# 버퍼 안 지하철역 선택
+for iFeature in bufferLayer.getFeatures():
+    for sfeature in stationLayer.getFeatures():
+        if sfeature.geometry().within(iFeature.geometry()):
+            stationLayer.select(sfeature.id())
+
+crr = timeit.default_timer()
+print (u"버퍼 안 지하철역 선택 : {}ms".format(int((crr - pre)*1000)))
+pre = crr
+
+# 결과 파일 저장
+QgsVectorFileWriter.writeAsVectorFormat( stationLayer, "/Data/Result2.shp", "cp949", stationLayer.crs(), "ESRI Shapefile", 1)
+iface.addVectorLayer("/Data/Result2.shp", "result2", "ogr")
+
+crr = timeit.default_timer()
+print (u"결과 파일 저장 : {}ms".format(int((crr - pre)*1000)))
+
+print (u"========================")
+print (u"전체 수행시간 : {}ms".format(int((crr - start)*1000)))
 
 ```
+
+
 
 <br>
 
