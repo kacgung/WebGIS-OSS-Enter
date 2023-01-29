@@ -22,4 +22,8 @@
 
 <br>
 
-The End [> 처음으로](README.md)
+The End
+
+<br>
+
+[> 처음으로](README.md)
