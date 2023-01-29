@@ -368,37 +368,44 @@ ogr2ogr -f "GPKG" output.gpkg PG:"host=localhost dbname=osgeo user=postgres pass
 
 심지어 DBMS가 아닌 파일에도 SQL로 원하는 자료만 뽑아 낼 수 있습니다.
 
+```
 ogr2ogr -sql "select * from road_link2 where lanes >= 8" --config SHAPE_ENCODING "CP949" lane8.shp road_link2.shp
+```
 
 -sql 옵션으로 SQL을 실행하고 있네요. 이 SQL은 PostGIS의 SQL과는 약간 다르고 공간 SQL은 안됩니다. 
 
 --config SHAPE_ENCODING 옵션은 CP949 인코딩의 한글이 들어있는 Shape 파일을 다룰 때는 꼭 필요합니다. 없으면 오류가 납니다.
 
 대상파일과 원본파일은 형식을 지정하지 않았는데도 문제 없네요.
-파일의 확장자나 파일 내용을 보고 OGR이 알아서 판단합니다. 하지만, 알아서 판단하는 것이 틀리는 경우가 있기에 가능하다면 명확히 지정해 주는 것이 좋습니다.
+파일의 확장자나 파일 내용을 보고 OGR이 알아서 판단합니다. 
+하지만, 알아서 판단하는 것이 틀리는 경우가 있기에 가능하다면 명확히 지정해 주는 것이 좋습니다.
 경고들이 주욱 나오기는 하는데요, 이는 자리수의 문제 때문이고 오류는 아닙니다.
 
+<br>
 
 이제 래스터 자료를 다뤄 보겠습니다.
 래스터 자료용 명령어는 GDAL이 담당하고 있습니다.
 https://gdal.org/programs/index.html#raster-programs 
 
 GDAL 명령어는 목적에 따라 여러가지를 사용합니다.
-
-
 먼저 래스터 데이터의 정보를 조회해 보겠습니다. 
 
+```
 gdalinfo BlueMarbleNG-TB_2004-12-01_rgb_3600x1800.TIFF
+```
 
 여러가지 정보를 확인할 수 있는데, 영상의 크기가 3600, 1800 로 나옵니다.
 Coordinate System 부분에서 좌표계도 알 수 있습니다. ESPG:4326이니 경위도군요.
 Pixel Size = (0.100000000000000,-0.100000000000000)를 보니 한 픽셀이 0.1 단위고 경위도니 0.1도 해상도 자료입니다. Y 방향에는 보통 마이너스 기호가 붙어 있습니다.
 공간적 범위는 Corner Coordinates 부분을 보면 됩니다. 전지구 범위의 영상이네요.
 
+<br>
 
 이제 포맷 변환을 해보겠습니다.
 
+```
 gdal_translate -of JPEG BlueMarbleNG-TB_2004-12-01_rgb_3600x1800.TIFF WorldMap.jpg
+```
 
 -of 인자가 대상파일의 포맷을 지정하고 있습니다.
 
@@ -407,10 +414,13 @@ gdal_translate -of JPEG BlueMarbleNG-TB_2004-12-01_rgb_3600x1800.TIFF WorldMap.j
 10 메가 바이트 GeoTIFF 파일을 600 킬로 바이트 JPEG 파일로 변환했습니다.
 변환된 JPEG 파일과 함께 공간정보를 담고 있는 WorldMap.jpg.aux.xml 파일도 같이 생겨서 QGIS 등의 프로그램에서 여전히 공간정보로 사용할 수 있네요.
 
+<br>
 
 래스터 데이터의 좌표계 변환도 많이 하는 작업입니다.
 
+```
 gdalwarp -s_srs EPSG:4326 -t_srs EPSG:5179 -of GTiff -r cubic -te 123 32 132 44 -te_srs EPSG:4326 BlueMarbleNG-TB_2004-12-01_rgb_3600x1800.TIFF Korea_5179.tif
+```
 
 -s_srs 인자는 원본 좌표계이고 경위도좌표계네요.
 -t_srs 인자는 대상 좌표계이고 국가인터넷지도와 네이버지도에서 사용중인 GRS80타원체 UTM-K네요.
@@ -420,9 +430,13 @@ gdalwarp -s_srs EPSG:4326 -t_srs EPSG:5179 -of GTiff -r cubic -te 123 32 132 44 
 -te_srs 인자는 -te 인자에 쓰인 좌표계가 무엇인지 설정하는 것이네요. 경위도로 했군요.
 뒤에는 역시 원본파일 대상파일 순으로 적었습니다.
 
+<br>
+
 래스터 데이터를 빨리 보이게 하는 대표적인 방법이 미리보기(Overlay) 영상을 피라미드 처럼 다단계로 만들어 두는 것입니다.
 
+```
 gdaladdo -r average BlueMarbleNG-TB_2004-12-01_rgb_3600x1800.TIFF 2 4 8 16 32
+```
 
 -r 인자로 보간방법을 지정했는데 이번에는 평균법으로 했습니다.
 그리고 오버레이를 만들 파일이름이 나오고 몇 개씩의 픽셀을 합쳐 오버레이를 만들지 숫자들이 나오네요.
@@ -430,8 +444,6 @@ gdaladdo -r average BlueMarbleNG-TB_2004-12-01_rgb_3600x1800.TIFF 2 4 8 16 32
 이렇게 오버레이를 만들어 두면 QGIS나 GeoServer 등에서 큰 영상을 매우 빠른 속도로 볼 수 있습니다.
 오버레이가 만들어진 영상은 QGIS의 속성창에서 피라미드 탭의 해상도 부분을 보면 확인할 수 있습니다.
 오버레이가 만들어지지 않은 단계가 있는 경우 이 부분이 붉은색 아이콘으로 표시됩니다.
-
-
 
 <br><br>
 
