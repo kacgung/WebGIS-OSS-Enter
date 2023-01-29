@@ -22,4 +22,4 @@
 
 <br>
 
-The End [> 처음으로](#reademe.md)
+The End [> 처음으로](reademe.md)
