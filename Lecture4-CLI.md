@@ -347,7 +347,9 @@ ogr2ogr의 인자를 하나씩 살펴보겠습니다.
 
 이번에는 공간자료의 파일 포맷 변환에 ogr2ogr을 사용해 보겠습니다.
 
+```
 ogr2ogr -f "GPKG" output.gpkg PG:"host=localhost dbname=osgeo user=postgres password=postgres schemas=public tables=admin_emd,admin_sgg,admin_sid,building,firestation,healthcenter,policestation,river,road_link2,road_link_geographic,stores,subway,subway_station,wardoffice"
+```
 
 -f 인자를 "GPKG"로 해서 만들어지는 파일 포맷을 GeoPackage로 지정했네요.
 
@@ -358,6 +360,9 @@ ogr2ogr -f "GPKG" output.gpkg PG:"host=localhost dbname=osgeo user=postgres pass
 
 만들어진 output.gpkg를 QGIS에서 열어 보시면 다음처럼 여러 레이어가 들어 있습니다.
 
+![](img/2023-01-29-13-38-09.png)
+
+<br>
 
 이렇게 ogr2ogr을 다양한 공간정보간의 포맷변환에 사용하실 수 있습니다. 심지어 Oracle Spatial, ArcSDE 등의 독점 소프트웨어 DBMS의 자료도 잘 다룹니다.
 
