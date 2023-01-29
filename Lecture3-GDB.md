@@ -1,4 +1,4 @@
-# 공간 DBMS 구축 (PostGIS)
+# 공간 DBMS 구축 (PostgreSQL + PostGIS)
 
 <br>
 
@@ -27,27 +27,27 @@
 
 <br>
 
-먼저 PostGIS의 기반 DBMS인 PostgreSQL에 확장 기능인 PostGIS가 적용되도록 하겠습니다.
+먼저 PostgreSQL에 확장 기능인 PostGIS가 적용되도록 하겠습니다.
 
 PostgreSQL을 관리하는 편리한 도구인 pgAdmin를 사용하겠습니다.
 [윈도우] 버튼을 누르고 pgadmin을 입력하면 쉽게 찾을 수 있습니다.
 pgAdmin 버튼을 눌러 시작하십시오.
 
-실습 암호는 'postgres' 입니다. 현업에서는 철저하게 보안 암호를 적용 바랍니다.
+실습 암호는 `'postgres'` 입니다. 현업에서는 철저하게 보안 암호를 적용 바랍니다.
 
 ![](img/2023-01-29-01-48-50.png)
 
 <br>
 
-공간 DBMS를 만들어 보겠습니다. 'Databases' 항목을 오른쪽 클릭하고 'Create > Database...' 메뉴를 선택합니다.
+공간 DBMS를 만들어 보겠습니다. `'Databases'` 항목을 오른쪽 클릭하고 `'Create > Database...'` 메뉴를 선택합니다.
 
 ![](img/2023-01-29-01-50-55.png)
 
 <br>
 
 새로 만들 Database의 이름을 osgeo라 하겠습니다.
-Properties 탭의 Name 항목에 osgeo를 입력해 주세요.
-그리고 Definition 탭으로 가셔서 Encoding: UTF-8, Template: template0, Collation: C, Character type: C 를 선택하시고 [OK]를 눌러 주세요.
+`Properties` 탭의 Name 항목에 osgeo를 입력해 주세요.
+그리고 `Definition` 탭으로 가셔서 `Encoding: UTF-8, Template: template0, Collation: C, Character type: C` 를 선택하시고 [OK]를 눌러 주세요.
 만약 Collation, Character type에 C가 아닌 다른 값을 선택하면 한글의 정렬과 검색에서 문제가 생길 수도 있으니 주의하세요.
 
 ![](img/2023-01-29-01-55-01.png)
@@ -68,7 +68,7 @@ create extension postgis;
 
 ![](img/2023-01-29-02-01-23.png)
 
-'Extensions'에 'postgis'가 들어가 있고, 'Schemas / public / Functions' 에 펑션수가 700개가 넘게 되고, Tables에 spatial_ref_sys 라는 테이블이 생겨 있음을 보면, 아~ 공간정보를 담을 준비가 되었구나 하시면 됩니다.
+'Extensions'에 'postgis'가 들어가 있고, `'Schemas / public / Functions'` 에 펑션수가 700개가 넘게 되고, Tables에 `'spatial_ref_sys'` 라는 테이블이 생겨 있음을 보면, 아~ 공간정보를 담을 준비가 되었구나 하시면 됩니다.
 
 <br>
 
