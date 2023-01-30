@@ -186,9 +186,15 @@ GIS 서비스를 위해서는 보통 여러 계층의 여러 소프트웨어가 
 <br>
 
 공간정보 오픈소스 스택에는 이 밖에도 다른 소프트웨어들이 많이 있습니다.
-OSGeo Live를 둘러보세요. 
+OSGeo Live를 둘러보세요.
 
-https://live.osgeo.org/
+https://live.osgeo.org
+
+<br>
+
+다음의 FOSS4G 소프트웨어 관련 블러그 내용도 참고하세요.
+
+http://blog.cleverelephant.ca/2019/02/dr-jts-crunchy.html
 
 <br/>
 
