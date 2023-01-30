@@ -196,7 +196,7 @@ https://live.osgeo.org
 
 http://blog.cleverelephant.ca/2019/02/dr-jts-crunchy.html
 
-![](img/2023-01-30-14-51-17.png)
+![](img/2023-01-30-14-55-20.png)
 
 <br/><br>
 
