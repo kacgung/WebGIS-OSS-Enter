@@ -192,11 +192,13 @@ https://live.osgeo.org
 
 <br>
 
-다음의 FOSS4G 소프트웨어 관련 블러그 내용도 참고하세요.
+다음의 블러그 내용도 참고하세요.
 
 http://blog.cleverelephant.ca/2019/02/dr-jts-crunchy.html
 
-<br/>
+![](img/2023-01-30-14-51-17.png)
+
+<br/><br>
 
 
 ## 실습에 필요한 SW 설치
