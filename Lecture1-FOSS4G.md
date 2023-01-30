@@ -197,13 +197,18 @@ https://live.osgeo.org/
 
 <br>
 
+> 먼저 PC에 설치된 SW를 확인해보세요. `윈도우키 + R` > `appwiz.cpl`
+
+![](img/2023-01-30-12-56-40.png)
+
+<br>
+
 ### QGIS
 
-- 서비스용은 아니지만 데이터를 확인할 때 사용합니다.
+- 공간데이터 확인, 편집, 분석 등에 사용합니다.
 - https://qgis.org/ko/site/forusers/download.html
-- 보통 64 비트를 사용합니다.
+- 요즘 PC 사양에 맞게 보통 64 비트를 사용합니다.
 - 설치관리자로 쉽게 설치할 수 있습니다.
-- 예제는 안설치해도 됩니다.
 - OS X, Linux, BSD, 안드로이드용 버전도 있습니다.
 
 ![](img/2023-01-27-14-56-11.png)
@@ -239,6 +244,7 @@ https://live.osgeo.org/
 
 - 텍스트 설정파일을 편집하고 웹코딩도 합니다.
 - https://notepad-plus-plus.org/downloads/v7.9.5/
+- 필요 시 설치하세요.
 
 ![](img/2023-01-27-14-57-18.png)
 
