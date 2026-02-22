@@ -27,7 +27,7 @@ https://docs.docker.com/desktop/setup/install/windows-install/
 
 <br>
 
-`명령 프롬프트`를 `관리자 모드`로 열고 WSL 버전을 확인하고, 업데이트 또는 설치 하세요.
+`명령 프롬프트`를 `관리자 모드`로 열고 WSL 버전을 확인하고, 업데이트 또는 설치 하세요:
 
 ```
 wsl --version
@@ -44,30 +44,82 @@ wsl --install
 
 <br>
 
-`Docker Desktop for Windows - x86_64` 를 다운로드하고 설치하세요.
+`Docker Desktop for Windows - x86_64` 를 다운로드하고 설치하세요:
 
 <br>
 
+PostGIS( + PostgreSQL + pgAdmin) 컨테이너를 설치 할 새 폴더 `postgis' 를 다음과 같은 폴더 구조로 만드세요:
 
-
-<br>
-
-
-
-<br>
-
-
+```
+postgis
+  /pgdata
+  docker-compose.yml
+```
 
 <br>
 
-## 공간 DBMS 준비하기
+Docker Compose 파일을 작성하세요:
+
+> https://hub.docker.com/r/postgis/postgis  
+> https://hub.docker.com/r/dpage/pgadmin4
+
+```
+# docker-compose.yml
+
+services:
+  postgis:
+    image: postgis/postgis:17-3.5 # PostgreSQL 17 + PostGIS 3.5
+    container_name: postgis
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: gisdb  # 디폴트 DB 이름
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data # (changed in PostgreSQL 18+) /var/lib/postgresql
+
+  pgadmin:
+    image: dpage/pgadmin4:8.14
+    container_name: pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com   # 로그인 이메일
+      PGADMIN_DEFAULT_PASSWORD: admin          # 로그인 비밀번호
+    ports:
+      - "8070:80"   # 브라우저에서 http://localhost:8070 접속
+    # volumes:
+    #   - ./pgadmin:/var/lib/pgadmin
+    depends_on:
+      - postgis
+```
 
 <br>
 
-샘플데이터 정도는 ESRI Shape 파일로도 잘 서비스할 수 있지만, 
-상업적인 규모의 서비스를 하기 위해서는 공간정보를 지원하는 DBMS를 이용하는 것이 좋습니다.
-공간 DBMS로 오늘 배우는 것은 PostGIS 이지만, 이 외에도 Oracle Spatial, MS SQL Server, MySQL, SpatialLite 등 
-여러가지 주요 DBMS가 공간정보를 다룰 수 있습니다.
+컨테이너를 생성 및 실행하세요:
+
+```
+docker-compose up -d
+```
+
+<br>
+
+공간 DBMS를 확인해보세요: pgAdmin(http://localhost:8070) > 'Severs' > 'Register' > 'Server'
+
+```
+General > 
+  Name: postgis
+Connection > 
+  Host name/address: postgis
+  Port: 5432
+  Username: postgres
+```
+![](img/2026-02-22-18-16-01.png)
+
+<br>
+
+> 샘플데이터 정도는 ESRI Shape 파일로도 잘 서비스할 수 있지만, 상업적인 규모의 서비스를 하기 위해서는 공간정보를 지원하는 DBMS를 이용하는 것이 좋습니다. 공간 DBMS로 오늘 배우는 것은 PostGIS 이지만, 이 외에도 Oracle Spatial, MS SQL Server, MySQL, SpatialLite 등 여러가지 주요 DBMS가 공간정보를 다룰 수 있습니다.
 
 ![](img/2023-01-29-01-25-32.png)
 
@@ -75,11 +127,16 @@ wsl --install
 
 <br>
 
+
+
+## 공간 DBMS 준비하기
+
+<br>
+
 먼저 PostgreSQL에 확장 기능인 PostGIS가 적용되도록 하겠습니다.
 
 PostgreSQL을 관리하는 편리한 도구인 pgAdmin를 사용하겠습니다.
-[윈도우] 버튼을 누르고 pgadmin을 입력하면 쉽게 찾을 수 있습니다.
-pgAdmin 버튼을 눌러 시작하십시오.
+pgAdmin(http://localhost:8070) 을 실행하세요:
 
 실습 암호는 `'postgres'` 입니다. 현업에서는 철저하게 보안 암호를 적용 바랍니다.
 
@@ -155,8 +212,6 @@ Query 창에서 열기 버튼을 눌러 이 SQL 파일을 열고 [F5]눌러 실�
 
 이제 PostGIS에서는 한국 좌표계들이 정상적으로 좌표계 변환이 됩니다.
 이렇게 PostGIS를 활성화시키고 한국 좌표계를 정정하는 작업은 새로운 Database를 만들때만 하면 됩니다.
-
-
 
 
 <br>
