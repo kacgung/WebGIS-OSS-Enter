@@ -4,13 +4,14 @@
 
 > 이제 공간정보를 DBMS에 넣어 효과적으로 관리하는 방법을 배워보도록 하겠습니다.
 
+- [PostGIS 도커 설치하기](#postgis-도커-설치하기)
 - [공간 DBMS 준비하기](#공간-dbms-준비하기)
 - [PostGIS에 공간정보 올리기](#postgis에-공간정보-올리기)
 - [공간 SQL 실습](#공간-sql-실습)
 
 <br>
 
-## PostgreSQL + PostGIS 설치하기 (feat. Docker Container)
+## PostGIS 도커 설치하기
 
 <br>
 
@@ -34,13 +35,13 @@ wsl --version
 ```
 
 ```
-wsl --update
-```
-
-```
 wsl --install
 ```
+
+![](img/2026-02-28-10-36-58.png)
 (WSL 설치가 끝나면, 시스템 재부팅일 필요합니다.)
+
+<br>
 
 <br>
 
@@ -60,6 +61,7 @@ postgis
 
 Docker Compose 파일을 작성하세요:
 
+> (참고)  
 > https://hub.docker.com/r/postgis/postgis  
 > https://hub.docker.com/r/dpage/pgadmin4
 
@@ -102,6 +104,10 @@ services:
 ```
 docker-compose up -d
 ```
+
+![](img/2026-02-28-11-07-54.png)
+
+![](img/2026-02-28-11-09-01.png)
 
 <br>
 
