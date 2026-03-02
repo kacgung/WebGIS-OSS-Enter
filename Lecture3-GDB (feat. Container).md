@@ -250,108 +250,169 @@ admin_emd를 열어보니 한글이 다 깨져 보이는군요.
 
 <br>
 
-공간정보를 PostGIS에 올릴 수 있는 도구는 여러가지가 있습니다.
-가장 쉽고 강력한 Shapefile and DBF loader를 사용해 보겠습니다.
-`윈도우 매뉴`에서 `'PostGIS PostGIS Bundle 3 for PostgreSQL x64 15 Shapefile and DBF Loader Exporter'` 를 선택하시면 실행하실 수 있습니다.
-
-![](img/2023-01-29-09-22-43.png)
+공간정보를 PostGIS에 올릴 수 있는 도구와 방법은 여러가지가 있습니다.
+본 실습에서는 QGIS 뿐만 아니라 GDAL(ogr2ogr)을 활용한 방법까지 알아보겠습니다.
 
 <br>
 
-먼저 DB 접속이 잘 되는지 확인하기 위해 `'View connection details…'` 버튼을 누릅니다.
-접속정보가 맞는지 확인하고 [OK]를 누릅니다.
-
-![](img/2023-01-29-09-27-50.png)
-![](img/2023-01-29-09-27-12.png)
+### QGIS 활용하여 PostGIS에 공간정보 올리기
 
 <br>
 
-import 탭이 선택되어 있는 상태에서 [Add file] 버튼을 눌러줍니다.
-C:\data 폴더에 있는 Shape 들을 다 선택하고 [Open]을 누릅니다.
+`QGIS` 실행하고 `탐색기`에서 `PostgreSQL` 를 찾아서 마우스를 우클릭하여서 `새 연결`을 실행하세요.
 
-한국 자료를 다루기 위해서는 이제부터가 중요합니다.
-한글이 들어있는 자료를 오류없이 읽기 위해서는 코드페이지를 자료에 맞게 지정해 주어야만 합니다. 만일 잘못 지정하면 DB에 올리는 중에 오류가 발생하게 됩니다.
-
-[Options…] 버튼을 눌러 상세한 정보를 지정하면 코드페이지를 지정할 수 있습니다.
-DBF file character encoding 값을 CP949로 바꾸고 [OK] 눌러줍니다.
-
-![](img/2023-01-29-09-38-18.png)
+![](img/2026-03-02-15-36-05.png)
 
 <br>
 
-이제 모든 자료의 SRID를 모두 5186으로 바꿔줍니다. SRID가 좌표계의 ID를 이야기합니다. 때로는 CRS라고 불리기도 합니다.
+다음과 같이 연결 정보를 편집하고 `연결 테스트` 하세요.
 
-조금 귀찮기는 하지만, 하나씩 바꿔줘야 합니다. 하지만, 이렇게 각 레이어별로 좌표계를 지정할 수 있으니 여러가지 좌료계를 가진 자료들도 한꺼번에 PostGIS에 올릴 수 있다는 장점도 있습니다.
+```
+이름: osgeo
+호스트: localhost
+포트: 5432
+데이터베이스: osgeo
+사용자: postgres
+비밀번호: postgres
+```
 
-총 14개의 Shape 파일에 대해 좌표계를 다 바꿔주었습니다.
-
-![](img/2023-01-29-09-38-54.png)
-
-<br>
-
-다 설정이 끝났으면 [Import] 버튼을 눌러 DB로 import를 시작합니다.
-하나씩 파일을 읽어 DB에 넣고, 공간인덱스까지 알아서 잘 만들어줍니다.
-
-다시 pgAdmin으로 가서 Object Browser의 public Schema 아래의 Tables를 보니 14개의 레이어가 잘 만들어져 있습니다. 혹시 안보이시는 분은 Object Browser에서 [F5]를 눌러 리프래시 해 주세요.
-
-그런데, 뭔가 좀 찝찝하네요. 원래 spatial_ref_sys 테이블이 있었고, 여기에 14개 레이어를 올렸으니 15개가 되어야 하는데...
-올라가지 못하고 미아가 된 레이어가 있을 듯 합니다.
-
-Log Window의 로그를 자세히 보면 road_link_geographic 레이어의 로그에서 오류를 찾을 수 있습니다.
-아까 QGIS에서 이 자료만 UTF-8 코드페이지를 가지고 있음을 확인했었는데 Import 시에 주의를 덜 했네요.
-
-![](img/2023-01-29-09-39-37.png)
+![](img/2026-03-02-15-37-21.png)
 
 <br>
 
-Unable to convert data to UTF-8~ 이런 류의 오류가 나오면 보통 코드페이지가 잘못된 것입니다. 단지 한글로 된 자료에서만 나오는 것은 아니고, 일본이나 중국, 러시아, 독일 등의 비 영어권 자료에서 흔히 발생하는 문제입니다.
+`매뉴 > 데이터베이스 > DB관리자` 실행하고, `제공자 > PostGIS > osgeo > public` 선택하고, `레이어/파일 불러오기` 실행하세요.  
+![](img/2026-03-02-15-46-29.png)
 
-이런 경우 다시 오류가 난 레이어만 올려주면 됩니다. 선택된 파일의 리스트를 바꾸기 위해서는 Shapefile and DBF loader를 닫았다가 다시 실행해 줘야 합니다. 좋은 프로그램인데 이 부분은 좀 아쉽네요.
-
-다시 실행하시고, road_link_geographic 레이어만 선택 후 좌표계만 바꿔주고 [Import] 하시면 됩니다. 그러고 보니 이 자료의 좌표계는 WGS84 경위도인 EPSG:4326인데 아까 5186으로 설정하고 올리려 했네요.
-
-코드페이지는 기본 값이 UTF-8이기에 구지 바꾸지 않아도 됩니다.
-
-![](img/2023-01-29-09-40-03.png)
+`입력: 가져올 파일`로 `/data/admin_emd.shp`을 선택하고, `확인`을 실행하세요.  
+![](img/2026-03-02-15-47-49.png)
 
 <br>
 
-pgAdmin에서 다시 레이어를 확인해 보니 잘 들어와 있습니다.
-
-![](img/2023-01-29-09-40-48.png)
+### QGIS 활용하여 PostGIS에 공간정보 여러개 올리기
 
 <br>
 
-**QGIS에서도 확인해 보겠습니다.**
-
-QGIS의 Browser Panel의 아래 부분을 보면 PostGIS 라는 코끼리 모양 아이콘의 항목이 있습니다.
-오른쪽 마우스로 클릭해 [새 연결] 메뉴를 누릅니다.
-
-![](img/2023-01-29-09-48-23.png)
+`매뉴 > 공간 처리 > 공간 처리 툴박스`를 실행하세요. `PostgreSQL`을 검색하고, `PostgreSQL로 내보내기`를 실행하세요. `배치 프로세스로 실행`을 실행하세요.  
+![](img/2026-03-02-16-13-50.png)
 
 <br>
 
-이제까지 공부하셨으니 PostGIS 연결을 위한 정보를 스스로 잘 넣어주실 수 있겠지요?
-다 입력하시고 [Test Connection] 버튼을 눌러 OK 메시지를 받으시면 성공입니다.
-꼭 [확인] 버튼을 눌러 정보를 저장해 주세요.
+다음과 같이 편집하여 실행하세요.
 
-![](img/2023-01-29-09-48-34.png)
+```
+데이터베이스(연결 이름): osgeo
+입력레이어: /data/admin_sgg.shp | /data/admin_sid.shp
+형태 인코딩: CP949
+스키마: public
+입력 속성의 너비 및 정확도 유지: X
+```
+
+주의! 입력 속성의 너비 및 정확도 유지를 해지하고 실행하세요.  
+![](img/2026-03-02-16-14-19.png)  
+![](img/2026-03-02-16-16-57.png)
 
 <br>
 
-이제 QGIS의 Browser Panel에서 PostGIS의 my pg 연결을 펼쳐보면 public 스키마 아래에 레이어들이 보이네요.
-확인을 위해 admin_emd와 road_link_geopraphic 레이어를 더블클릭해 불러와서 Shape 파일과 동일한 위치에 보이는지, 한글이 잘 나오는지 확인해 주세요.
-
-![](img/2023-01-29-09-48-48.png)
+### GDAL(ogr2ogr) 활용하여 PostGIS에 공간정보 올리기
 
 <br>
 
-지금까지 가장 편리한 툴인 Shapefile and DBF loader로 공간정보를 올려보셨는데,
-경험하셨다시피 완전 자동으로 모든 것이 처리되는 것은 아니고 생각보다 실수하는 경우도 많습니다.
-PostGIS에 공간정보를 올리는 툴은 이 밖에도 shp2pgsql 명령이나 ogr2ogr 명령 등 커멘드 라인 명령들도 많이 사용됩니다.
+`QGIS > 탐색기 > PostgreSQL > osgeo > public` 에서 `admin_sid` 마우스 우클릭하여 `관리 > 삭제` 하세요.
+`윈도우 키> OSGeo4W Shell` 을 실행하세요. 다음 명령어를 실행하여 레이어를 올리세요. `QGIS > 탐색기 > PostgreSQL > osgeo > public` 에서 `새로고침` 하세요.
 
-사실 Shapefile and DBF loader 툴은 shp2pgsql 명령에 UI를 씨워놓은 툴입니다.
-실무환경에서는 shp2pgsql 명령을 이용해 여러 파일을 올릴 수 있는 스크립트를 *.bat나 *.sh 파일로 만들어 사용합니다.
+```Bash
+cd c:\data
+```
+```Bash
+ogr2ogr -progress --config PG_USE_COPY YES --config SHAPE_ENCODING CP949 -f PostgreSQL "PG:dbname='osgeo' host=localhost port=5432 user='postgres' password='postgres'" -overwrite -nlt PROMOTE_TO_MULTI -lco GEOMETRY_NAME=geom -lco FID=id -lco PRECISION=NO admin_sid.shp -nln public.admin_sid
+```
+
+![](img/2026-03-02-16-37-45.png)
+
+<br>
+
+### GDAL(ogr2ogr) 활용하여 PostGIS에 공간정보 여러개 올리기
+
+<br>
+
+다음과 같이 배치파일을 작성하고 실행하여서 여러개의 공간정보를 PostGIS에 올리세요. 터미널(CMD)에서 한글 깨짐을 방지하기 위해서 CP949 또는 EUC-KR 로 설정하세요.
+
+
+```Bash
+@echo off
+setlocal enabledelayedexpansion
+
+:: 1. 사용자 설정
+set OSGEO4W_ENV="C:\Users\bon\AppData\Local\Programs\OSGeo4W\bin\o4w_env.bat"
+set DB_CONN="PG:dbname='osgeo' host='localhost' port='5432' user='postgres' password='postgres'"
+set TARGET_SCHEMA=public
+set SRID=5186
+set ENCODING=CP949
+
+:: OSGeo4W 환경 로드
+if not exist %OSGEO4W_ENV% (
+    echo [ERROR] OSGeo4W 환경 파일을 찾을 수 없습니다: %OSGEO4W_ENV%
+    pause
+    exit /b
+)
+call %OSGEO4W_ENV%
+
+echo ">>> Batch Import Started..."
+
+:: 2. 모든 .shp 파일 루프 실행
+for %%f in (*.shp) do (
+    set FILE_NAME=%%f
+    set TABLE_NAME=%%~nf
+
+    echo.
+    echo [Processing] !FILE_NAME! ---^> %TARGET_SCHEMA%.!TABLE_NAME!
+
+    ogr2ogr -progress ^
+--config PG_USE_COPY YES ^
+--config SHAPE_ENCODING %ENCODING% ^
+-f PostgreSQL %DB_CONN% "%%f" ^
+-nln %TARGET_SCHEMA%.!TABLE_NAME! ^
+-overwrite ^
+-nlt PROMOTE_TO_MULTI ^
+-s_srs EPSG:%SRID% ^
+-t_srs EPSG:%SRID% ^
+-lco GEOMETRY_NAME=geom ^
+-lco FID=id ^
+-lco PRECISION=NO
+
+    if !errorlevel! equ 0 (
+        echo [SUCCESS] !TABLE_NAME! 테이블 생성 완료.
+    ) else (
+        echo [FAILED] !FILE_NAME! 임포트 중 오류 발생.
+    )
+)
+
+echo.
+echo ">>> All files processed."
+pause
+```
+
+![](img/2026-03-02-19-30-01.png)
+
+<br>
+
+QGIS에서 `road_link_geographic` 레이어의 좌표체계 및 인코딩을 확인하고, 삭제 후 다시 업로드하세요.
+
+```Bash
+where /r C:\ o4w_env.bat
+```
+
+```Bash
+C:\Users\bon\AppData\Local\Programs\OSGeo4W\bin\o4w_env.bat
+```
+
+```Bash
+cd c:\data
+```
+
+```Bash
+ogr2ogr -progress --config PG_USE_COPY YES --config SHAPE_ENCODING UTF-8 -f PostgreSQL "PG:dbname='osgeo' host=localhost port=5432 user='postgres' password='postgres'" -overwrite -nlt PROMOTE_TO_MULTI -lco GEOMETRY_NAME=geom -lco FID=id -lco PRECISION=NO road_link_geographic.shp -nln public.road_link_geographic -s_srs EPSG:4326 -t_srs EPSG:4326
+```
 
 <br>
 
@@ -361,10 +422,11 @@ PostGIS에 공간정보를 올리는 툴은 이 밖에도 shp2pgsql 명령이나
 
 먼저 간단한 일반 SQL 부터 시작해 보겠습니다.
 pgAdmin으로 가서 새 Query 창을 띄우고 실습하시면 됩니다.
+pgAdmin(http://localhost:8070) 을 실행하세요.
 
 <br>
 
-```
+```sql
 SELECT *
 FROM stores;
 ```
@@ -375,7 +437,7 @@ FROM stores;
 
 <br>
 
-```
+```sql
 SELECT *
 FROM stores
 WHERE brand='이마트';
@@ -385,7 +447,7 @@ WHERE brand='이마트';
 
 <br>
 
-```
+```sql
 SELECT COUNT(nam)
 FROM stores
 WHERE addr like '%영등포구%';
@@ -395,7 +457,7 @@ WHERE addr like '%영등포구%';
 
 <br>
 
-```
+```sql
 SELECT brand, COUNT(nam) as "점포수"
 FROM stores
 GROUP BY brand;
@@ -406,7 +468,7 @@ GROUP BY brand;
 
 <br>
 
-```
+```sql
 SELECT brand, AVG(char_length(nam)), STDDEV(char_length(nam))
 FROM stores GROUP BY brand;
 ```
@@ -415,7 +477,7 @@ FROM stores GROUP BY brand;
 
 <br>
 
-```
+```sql
 SELECT ST_AsText(geom)
 FROM firestation;
 ```
@@ -425,7 +487,7 @@ ST_로 시작하는 함수가 공간 SQL을 위한 함수입니다.
 
 <br>
 
-```
+```sql
 SELECT link_id, ST_Length (geom)
 FROM road_link_geographic;
 ```
@@ -434,7 +496,7 @@ FROM road_link_geographic;
 
 <br>
 
-```
+```sql
 SELECT link_id, ST_Length(ST_Transform(geom,5179))
 FROM road_link_geographic;
 ```
@@ -444,7 +506,7 @@ FROM road_link_geographic;
 
 <br>
 
-```
+```sql
 SELECT ufid, ST_Area(ST_Transform(geom,5179))
 FROM building
 LIMIT 100;
@@ -456,7 +518,7 @@ LIMIT 100;
 
 <br>
 
-```
+```sql
 SELECT ufid, ST_Area(geom)
 FROM building
 LIMIT 100;
@@ -467,7 +529,7 @@ LIMIT 100;
 
 <br>
 
-```
+```sql
 ALTER TABLE stores
 ADD Column buffer geometry(Polygon,4326);
 ```
@@ -477,7 +539,7 @@ ADD Column buffer geometry(Polygon,4326);
 
 <br>
 
-```
+```sql
 UPDATE stores
 SET buffer=ST_Transform(ST_Buffer(geom, 30), 4326);
 ```
@@ -487,9 +549,11 @@ SET buffer=ST_Transform(ST_Buffer(geom, 30), 4326);
 
 <br>
 
-```
+```sql
 SELECT ST_AsGeoJSON(ST_Transform(geom, 4326))
 FROM stores;
+```
+```sql
 SELECT ST_AsGML(geom) FROM stores;
 ```
 
@@ -503,7 +567,7 @@ SELECT ST_AsGML(geom) FROM stores;
 
 <br>
 
-```
+```sql
 SELECT ST_NPoints(geom) as num_point
 FROM road_link2
 ORDER BY num_point DESC
@@ -514,7 +578,7 @@ limit 100;
 
 <br>
 
-```
+```sql
 SELECT shop.nam as "매장명", metro.nam as "인근역"
 FROM stores as shop, subway_station as metro
 WHERE ST_Intersects(ST_Buffer(shop.geom, 500), metro.geom);
@@ -524,7 +588,7 @@ WHERE ST_Intersects(ST_Buffer(shop.geom, 500), metro.geom);
 
 <br>
 
-```
+```sql
 SELECT shop.nam as "매장명", metro.nam as "인근역"
 FROM stores as shop, subway_station as metro
 WHERE shop.addr LIKE '%영등포%'
@@ -537,11 +601,7 @@ AND ST_Intersects(ST_Buffer(shop.geom, 500), metro.geom);
 
 본 강의에서 배우지 않는 강력한 공간 SQL 들이 많이 있습니다.
 다음 링크의 PostGIS Reference에서 공간정보 함수들의 정보를 얻을 수 있습니다.   
-https://postgis.net/docs/manual-3.0/postgis-ko_KR.html
-
-다음 OSGeo 한국어지부 문서저장소에서 찾아보시면 한글로 된 자료도 있습니다.   
-http://tinyurl.com/osgeo-kr-docs   
-
+https://postgis.net/documentation/manual/
 
 <br>
 

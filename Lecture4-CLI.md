@@ -230,7 +230,7 @@ from subway_station as st,
     select st_buffer(st_union(geom), 500) as geom
     from road_link2 where lanes >=8
 ) as buf
-where st_within(st.geom, buf.geom)
+where st_within(st.geom, buf.geom);
 ```
 
 도로중심선 레이어에서 8차선 이상만 필터링 해, st_buffer 함수로 버퍼링하고, 그 결과를 지하철역 레이어와 st_within 함수를 조건으로 JOIN 하는 것으로 끝입니다.
@@ -251,7 +251,7 @@ where gid in
     from subway_station as st, road_link2 as road
     where road.lanes >= 8
         and ST_Distance(st.geom, road.geom) <= 500
-)
+);
 ```
 <br>
 
@@ -275,7 +275,7 @@ where gid in
     from subway_station as st, road_link2 as road
     where road.lanes >= 8
         and ST_DWithin(st.geom, road.geom, 500)
-)
+);
 ```
 
 <br>
